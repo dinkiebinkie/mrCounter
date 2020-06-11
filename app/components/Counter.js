@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -15,23 +15,31 @@ const windowHeight = Dimensions.get("window").height;
 
 //rsf
 function HomeCounter({ counter }) {
+  const [compHeight, setCompHeight] = useState(0);
   const { title, count, selected } = counter;
-
+  console.log("compHeight", compHeight);
   return (
     <View style={styles.container}>
       <View
         style={styles.count}
         onLayout={e => {
-          const { width, height } = e.nativeEvent.layout;
-          console.log(width, height);
+          const { height } = e.nativeEvent.layout;
+          setCompHeight(height);
         }}
       >
-        <Text adjustsFontSizeToFit numberOfLines={1} style={styles.countText}>
+        <Text
+          adjustsFontSizeToFit
+          numberOfLines={1}
+          style={[
+            { fontSize: compHeight * 0.9, lineHeight: compHeight * 1.1 },
+            styles.countText
+          ]}
+        >
           {count}
         </Text>
       </View>
       <View style={styles.buttons}>
-        <TouchableHighlight style={[styles.thButton, styles.thButton1]} onPress>
+        <TouchableHighlight style={[styles.thButton, styles.thButton1]}>
           <Text>+</Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.thButton}>
@@ -53,13 +61,21 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "stretch",
     backgroundColor: colors.white
   },
   count: {
-    flex: 1
+    flex: 1,
+    // height: "100%",
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "stretch",
+    textAlignVertical: "center"
   },
-  countText: { fontSize: windowHeight * 0.05 },
+  countText: {
+    backgroundColor: "blue"
+  },
+  // countText: { fontSize: windowHeight * 0.05 },
   thButton: {
     width: 50,
     height: 50,
