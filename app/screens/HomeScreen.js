@@ -1,46 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, Button } from "react-native";
 import HomeCounter from "../components/HomeCounter";
 import colors from "../config/colors";
+import { CountersContext } from "../state/CountersContext";
 import {
   useDimensions,
   useDeviceOrientation
 } from "@react-native-community/hooks";
 
-const counters = [
-  {
-    id: 0,
-    title: "Counter 1",
-    count: 0,
-    selected: false,
-    incrementAmount: 1
-  },
-  {
-    id: 1,
-    title: "Counter 2",
-    count: 0,
-    selected: false,
-    incrementAmount: 1
-  },
-  {
-    id: 2,
-    title: "Counter 3",
-    count: 0,
-    selected: false,
-    incrementAmount: 1
-  }
-];
-
 //rsf
 function HomeScreen({ navigation }) {
-  // console.log(useDimensions()); // get dimensions regardless of orientation
-  // console.log(useDeviceOrientation()); // get orientation
+  const { counters } = useContext(CountersContext);
+
   return (
     <View style={styles.container}>
       <View style={styles.counterContainer}>
-        {counters.map((counter, i) => (
-          <HomeCounter key={i} counter={counter} index={i} />
-        ))}
+        {counters
+          ? counters.map((counter, i) => (
+              <HomeCounter key={i} counter={counter} index={i} />
+            ))
+          : null}
       </View>
       <Button
         title="Go ->"
