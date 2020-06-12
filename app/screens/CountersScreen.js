@@ -5,14 +5,19 @@ import colors from "../config/colors";
 
 //rsf
 function HomeScreen({ route }) {
-  const { counters } = route.params;
+  const { counters, numSelected } = route.params;
 
   return (
     <View style={styles.container}>
       <View style={styles.counterContainer}>
         {counters.map((counter, i) =>
           counter.selected ? (
-            <Counter key={i} counter={counter} index={i} />
+            <Counter
+              key={i}
+              counter={counter}
+              index={i}
+              numSelected={numSelected}
+            />
           ) : null
         )}
       </View>

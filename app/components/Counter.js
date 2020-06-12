@@ -14,11 +14,17 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 const windowHeight = Dimensions.get("window").height;
 
 //rsf
-function HomeCounter({ counter }) {
+function HomeCounter({ counter, numSelected }) {
   const [compHeight, setCompHeight] = useState(0);
   const { title, count, selected } = counter;
+
+  let containerStyles = styles.container;
+  if (numSelected > 1) {
+    containerStyles = styles.multipleContainer;
+  }
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { height: `${100 / numSelected}%` }]}>
       <View
         style={styles.count}
         onLayout={e => {
@@ -53,7 +59,7 @@ function HomeCounter({ counter }) {
 const styles = StyleSheet.create({
   buttons: {
     flexDirection: "column",
-    justifyContent: "space-between"
+    justifyContent: "flex-end"
   },
   container: {
     paddingHorizontal: 24,
@@ -65,7 +71,7 @@ const styles = StyleSheet.create({
   },
   count: {
     flex: 1,
-    // height: "100%",
+    height: "100%",
     backgroundColor: "red",
     justifyContent: "center",
     alignItems: "stretch",
