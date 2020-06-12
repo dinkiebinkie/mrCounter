@@ -1,25 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, Button } from "react-native";
 import Counter from "../components/Counter";
 import colors from "../config/colors";
+import { CountersContext } from "../state/CountersContext";
 
 //rsf
 function HomeScreen({ route }) {
-  const { counters, numSelected } = route.params;
+  const { counters } = useContext(CountersContext);
+  const { numSelected } = route.params;
 
   return (
     <View style={styles.container}>
       <View style={styles.counterContainer}>
-        {counters.map((counter, i) =>
-          counter.selected ? (
-            <Counter
-              key={i}
-              counter={counter}
-              index={i}
-              numSelected={numSelected}
-            />
-          ) : null
-        )}
+        {counters
+          ? counters.map((counter, i) =>
+              counter.selected ? (
+                <Counter
+                  key={i}
+                  counter={counter}
+                  index={i}
+                  numSelected={numSelected}
+                />
+              ) : null
+            )
+          : null}
       </View>
     </View>
   );

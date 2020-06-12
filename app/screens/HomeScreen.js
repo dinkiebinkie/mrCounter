@@ -36,9 +36,7 @@ function HomeScreen({ navigation }) {
       <Button
         title="Go ->"
         style={styles.goButton}
-        onPress={() =>
-          navigation.navigate("Counters", { counters, numSelected })
-        }
+        onPress={() => navigation.navigate("Counters", { numSelected })}
         disabled={numSelected < 1 ? true : false}
       />
     </View>

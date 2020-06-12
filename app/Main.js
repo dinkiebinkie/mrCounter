@@ -18,28 +18,28 @@ function Main(props) {
       {
         id: 0,
         title: "Counter 1",
-        count: 0,
+        count: 10,
         selected: false,
         incrementAmount: 1
       },
       {
         id: 1,
         title: "Counter 2",
-        count: 0,
+        count: 100,
         selected: false,
         incrementAmount: 1
       },
       {
         id: 2,
         title: "Counter 3",
-        count: 0,
+        count: 1000,
         selected: false,
         incrementAmount: 1
       },
       {
         id: 3,
         title: "Counter 4",
-        count: 0,
+        count: 10000,
         selected: false,
         incrementAmount: 1
       }
