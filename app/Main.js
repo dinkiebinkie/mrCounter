@@ -35,12 +35,19 @@ function Main(props) {
         count: 0,
         selected: false,
         incrementAmount: 1
+      },
+      {
+        id: 3,
+        title: "Counter 4",
+        count: 0,
+        selected: false,
+        incrementAmount: 1
       }
     ]);
   }, []);
 
   return (
-    <CountersContext.Provider value={{ counters, updateCounters: setCounters }}>
+    <CountersContext.Provider value={{ counters, setCounters }}>
       <NavigationContainer>
         <SafeAreaView style={styles.container}>
           <Stack.Navigator>

@@ -17,7 +17,6 @@ const windowHeight = Dimensions.get("window").height;
 function HomeCounter({ counter }) {
   const [compHeight, setCompHeight] = useState(0);
   const { title, count, selected } = counter;
-  console.log("compHeight", compHeight);
   return (
     <View style={styles.container}>
       <View
@@ -31,7 +30,7 @@ function HomeCounter({ counter }) {
           adjustsFontSizeToFit
           numberOfLines={1}
           style={[
-            { fontSize: compHeight * 0.9, lineHeight: compHeight * 1.1 },
+            { fontSize: compHeight * 0.9, lineHeight: compHeight * 1 },
             styles.countText
           ]}
         >

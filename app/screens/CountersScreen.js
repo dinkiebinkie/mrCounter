@@ -6,13 +6,15 @@ import colors from "../config/colors";
 //rsf
 function HomeScreen({ route }) {
   const { counters } = route.params;
-  // console.log(counters);
+
   return (
     <View style={styles.container}>
       <View style={styles.counterContainer}>
-        {counters.map((counter, i) => (
-          <Counter key={i} counter={counter} index={i} />
-        ))}
+        {counters.map((counter, i) =>
+          counter.selected ? (
+            <Counter key={i} counter={counter} index={i} />
+          ) : null
+        )}
       </View>
     </View>
   );
@@ -35,9 +37,3 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
-
-// (counter, i) => (
-// counter.selected ? (
-//   <Counter key={i} counter={counter} index={i} />
-// )
-// ) : null

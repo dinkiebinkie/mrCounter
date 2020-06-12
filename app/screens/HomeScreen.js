@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Button } from "react-native";
 import HomeCounter from "../components/HomeCounter";
 import colors from "../config/colors";
@@ -10,14 +10,26 @@ import {
 
 //rsf
 function HomeScreen({ navigation }) {
+  const [numSelected, setNumSelected] = useState(0);
   const { counters } = useContext(CountersContext);
+
+  useEffect(() => {
+    let newNumSelected = 0;
+    counters.forEach(counter => (counter.selected ? newNumSelected++ : null));
+    setNumSelected(newNumSelected);
+  });
 
   return (
     <View style={styles.container}>
       <View style={styles.counterContainer}>
         {counters
           ? counters.map((counter, i) => (
-              <HomeCounter key={i} counter={counter} index={i} />
+              <HomeCounter
+                key={i}
+                counter={counter}
+                index={i}
+                numSelected={numSelected}
+              />
             ))
           : null}
       </View>
@@ -25,6 +37,7 @@ function HomeScreen({ navigation }) {
         title="Go ->"
         style={styles.goButton}
         onPress={() => navigation.navigate("Counters", { counters })}
+        disabled={numSelected < 1 ? true : false}
       />
     </View>
   );
