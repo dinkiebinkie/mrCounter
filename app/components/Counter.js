@@ -12,10 +12,10 @@ import colors from "../config/colors";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { CountersContext } from "../state/CountersContext";
 
-const windowHeight = Dimensions.get("window").height;
+// const windowHeight = Dimensions.get("window").height;
 
 //rsf
-function HomeCounter({ counter, numSelected }) {
+function HomeCounter({ counter, numSelected, index }) {
   const { counters, setCounters } = useContext(CountersContext);
 
   const [compHeight, setCompHeight] = useState(0);
@@ -26,6 +26,7 @@ function HomeCounter({ counter, numSelected }) {
     setCounters(
       counters.map((counter, i) => {
         if (counter.id !== id) return counter;
+
         const newCounter = { ...counter };
         newCounter.count = increment
           ? (counter.count += 1)
@@ -34,10 +35,18 @@ function HomeCounter({ counter, numSelected }) {
       })
     );
 
-  const numString = 1.11 - count.toString().length * 0.11;
+  const numString = 1.12 - count.toString().length * 0.12;
 
   return (
-    <View style={[styles.container, { height: `${100 / numSelected}%` }]}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingBottom: numSelected === index ? 0 : "1%",
+          height: `${100 / numSelected}%`
+        }
+      ]}
+    >
       <View
         style={styles.count}
         onLayout={e => {
@@ -51,7 +60,22 @@ function HomeCounter({ counter, numSelected }) {
           numberOfLines={1}
           style={[
             {
-              fontSize: compHeight * numString
+              fontSize: 16,
+              zIndex: 100
+              // flex: 1
+            }
+            // styles.countText
+          ]}
+        >
+          {title}
+        </Text>
+        <Text
+          adjustsFontSizeToFit
+          numberOfLines={1}
+          style={[
+            {
+              fontSize: compHeight * numString,
+              lineHeight: compHeight * numString
             },
             styles.countText
           ]}
@@ -61,16 +85,16 @@ function HomeCounter({ counter, numSelected }) {
       </View>
       <View style={styles.buttons}>
         <TouchableHighlight
-          style={[styles.thButton, styles.thButton1]}
+          style={(styles.thButton, { height: compHeight / 2 })}
           onPress={() => changeCount(counters, setCounters, id, true)}
         >
-          <Text>+</Text>
+          <Text style={styles.incButton}>+</Text>
         </TouchableHighlight>
         <TouchableHighlight
-          style={styles.thButton}
+          style={(styles.thButton, { height: compHeight / 2 })}
           onPress={() => changeCount(counters, setCounters, id, false)}
         >
-          <Text>-</Text>
+          <Text style={styles.incButton}>-</Text>
         </TouchableHighlight>
       </View>
     </View>
@@ -80,42 +104,46 @@ function HomeCounter({ counter, numSelected }) {
 //rnss
 const styles = StyleSheet.create({
   buttons: {
-    flexDirection: "column",
-    justifyContent: "flex-end"
+    justifyContent: "flex-start",
+    flex: 1,
+    height: "100%"
   },
   container: {
-    paddingHorizontal: 24,
-    paddingVertical: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "stretch",
     backgroundColor: colors.white
   },
   count: {
-    flex: 1,
+    flex: 4,
     height: "100%",
-    backgroundColor: "red",
+    // backgroundColor: "red",
     justifyContent: "center",
     alignItems: "center",
     textAlignVertical: "center",
-    // alignSelf: "flex-start",
     flexShrink: 1
   },
   countText: {
-    // flex: 1,
+    flex: 1,
     flexWrap: "wrap",
-    backgroundColor: "blue"
+    textAlignVertical: "center"
+
+    // backgroundColor: "blue"
   },
-  // countText: { fontSize: windowHeight * 0.05 },
+  incButton: {
+    backgroundColor: "rgba(0,0,0,0.1)",
+    // backgroundColor: "purple",
+    textAlign: "center",
+    textAlignVertical: "center",
+    flex: 1
+  },
   thButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
+    flex: 1,
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.primary
-  },
-  thButton1: { marginBottom: 8 }
+    alignItems: "center"
+  }
 });
 
 export default HomeCounter;

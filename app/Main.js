@@ -7,6 +7,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { CountersContext } from "./state/CountersContext";
 
+import { guidGenerator } from "./helpers";
+
 const Stack = createStackNavigator();
 
 //rsf
@@ -46,6 +48,22 @@ function Main(props) {
     ]);
   }, []);
 
+  const addCounter = (title, count) => {
+    const newCounter = {
+      title,
+      count,
+      id: guidGenerator(),
+      selected: false,
+      incrementAmount: 1
+    };
+    setCounters([...counters, newCounter]);
+  };
+  const removeCounter = id => {
+    const newCounters = [...counters];
+    const indexOfCounter = newCounters.findIndex(counter => counter.id === id);
+    setCounters(newCounters.splice(indexOfCounter, 1));
+  };
+
   return (
     <CountersContext.Provider value={{ counters, setCounters }}>
       <NavigationContainer>
@@ -67,8 +85,8 @@ function Main(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primary,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+    backgroundColor: colors.primary
+    // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
   }
 });
 
