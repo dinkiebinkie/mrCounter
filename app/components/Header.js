@@ -1,28 +1,23 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Button } from "react-native";
-import HomeCounter from "../components/HomeCounter";
 import colors from "../config/colors";
 import { CountersContext } from "../state/CountersContext";
 import { withTheme } from "react-native-elements";
-import {
-  useDimensions,
-  useDeviceOrientation
-} from "@react-native-community/hooks";
-
+import { LinearGradient } from "expo-linear-gradient";
 //rsf
-function HomeScreen({ navigation, theme }) {
-  const [numSelected, setNumSelected] = useState(0);
+function HomeScreen({ navigation }) {
+  console.log(navigation);
   const { counters } = useContext(CountersContext);
 
-  useEffect(() => {
-    let newNumSelected = 0;
-    counters.forEach(counter => (counter.selected ? newNumSelected++ : null));
-    setNumSelected(newNumSelected);
-  });
+  // useEffect(() => {
+  //   let newNumSelected = 0;
+  //   counters.forEach(counter => (counter.selected ? newNumSelected++ : null));
+  //   setNumSelected(newNumSelected);
+  // });
 
   return (
-    <View style={styles.container(theme)}>
-      <View style={styles.counterContainer}>
+    <View style={styles.container}>
+      {/* <View style={styles.counterContainer}>
         {counters
           ? counters.map((counter, i) => (
               <HomeCounter
@@ -39,19 +34,19 @@ function HomeScreen({ navigation, theme }) {
         style={styles.goButton}
         onPress={() => navigation.navigate("Counters", { numSelected })}
         disabled={numSelected < 1 ? true : false}
-      />
+      /> */}
     </View>
   );
 }
 
 //rnss
 const styles = StyleSheet.create({
-  container: theme => ({
+  container: {
     flex: 1,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: colors.greyMid,
     flexDirection: "column",
     justifyContent: "space-between"
-  }),
+  },
   counterContainer: {
     flexDirection: "column"
   },
