@@ -17,7 +17,8 @@ const Stack = createStackNavigator();
 
 const theme = {
   colors: {
-    primary: "#EAE6E1"
+    primary: "#EAE6E1",
+    Beige1: "#EAE6E1"
   }
 };
 
@@ -97,7 +98,11 @@ function Main(props) {
           removeCounter
         }}
       >
-        <NavigationContainer>
+        <NavigationContainer
+        // navigationOptions={{
+        //   header: props => <Header {...props} />
+        // }}
+        >
           <SafeAreaView style={styles.container}>
             <Stack.Navigator>
               {/* <Stack.Screen
@@ -108,12 +113,28 @@ function Main(props) {
               <Stack.Screen
                 name="Home"
                 component={HomeScreen}
-                options={{ headerTitle: props => <Header {...props} /> }}
+                options={{
+                  headerTitle: props => <Header {...props} />,
+                  headerStatusBarHeight: 0,
+                  headerStyle: {
+                    backgroundColor: "transparent",
+                    elevation: 0,
+                    shadowOpacity: 0
+                  },
+                  headerTitleContainerStyle: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0
+                  }
+                }}
               />
               <Stack.Screen
                 name="Counters"
                 component={CounterScreen}
-                options={{ headerTitle: props => <Header {...props} /> }}
+                // options={{
+                //   headerTitle: props => <Header {...props} />
+                // }}
               />
             </Stack.Navigator>
           </SafeAreaView>
@@ -126,7 +147,8 @@ function Main(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.primary
+    backgroundColor: "green"
+    // backgroundColor: theme.colors.primary
   }
 });
 
