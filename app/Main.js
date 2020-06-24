@@ -18,7 +18,12 @@ const Stack = createStackNavigator();
 const theme = {
   colors: {
     primary: "#EAE6E1",
-    Beige1: "#EAE6E1"
+    Beige1: "#EAE6E1",
+    LightGrey: "#F2F3F3",
+    Black: "#2E2B2B",
+    PureWhite: "#FFFFFF",
+    DeepBeige: "#897A5E",
+    DarkBeige: "#AAA191"
   }
 };
 
@@ -98,45 +103,18 @@ function Main(props) {
           removeCounter
         }}
       >
-        <NavigationContainer
-        // navigationOptions={{
-        //   header: props => <Header {...props} />
-        // }}
-        >
+        <NavigationContainer>
           <SafeAreaView style={styles.container}>
             <Stack.Navigator>
-              {/* <Stack.Screen
-              name="Title"
-              component={TitleScreen}
-              options={{ headerTitle: props => <Header {...props} /> }}
-            /> */}
               <Stack.Screen
                 name="Home"
                 component={HomeScreen}
                 options={{ headerShown: false }}
-                // options={{
-                //   headerTitle: props => <Header {...props} />,
-                //   headerStatusBarHeight: 900,
-                //   headerStyle: {
-                //     backgroundColor: "transparent",
-                //     elevation: 0,
-                //     shadowOpacity: 0,
-                //     height: 900
-                //   },
-                //   headerTitleContainerStyle: {
-                //     left: 0,
-                //     right: 0,
-                //     top: 0,
-                //     bottom: 0
-                //   }
-                // }}
               />
               <Stack.Screen
                 name="Counters"
                 component={CounterScreen}
-                // options={{
-                //   headerTitle: props => <Header {...props} />
-                // }}
+                options={{ headerShown: false }}
               />
             </Stack.Navigator>
           </SafeAreaView>
@@ -148,10 +126,15 @@ function Main(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-    // backgroundColor: "green"
-    // backgroundColor: theme.colors.primary
+    flex: 1,
+    backgroundColor: theme.colors.primary
   }
 });
 
 export default withTheme(Main);
+
+/* <Stack.Screen
+  name="Title"
+  component={TitleScreen}
+  options={{ headerTitle: props => <Header {...props} /> }}
+/> */

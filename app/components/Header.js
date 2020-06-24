@@ -1,22 +1,30 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, View, Button, Animated } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Button,
+  Animated,
+  Image,
+  Dimensions
+} from "react-native";
 import { CountersContext } from "../state/CountersContext";
-import { withTheme, Image } from "react-native-elements";
+import { withTheme } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
 
 import Eye1 from "../assets/Eye1.svg";
 import Eye2 from "../assets/Eye2.svg";
 import Eye3 from "../assets/Eye3.svg";
 import Eye4 from "../assets/Eye4.svg";
-import MrCounter1 from "../assets/MrCounter1.svg";
+import MrCounter1 from "../assets/MrCounter1.png";
 import { hide } from "expo/build/launch/SplashScreen";
 
 // import MrCounter1 from "../assets/MrCounter1.png";
+const halfScreenWidth = Math.floor(Dimensions.get("window").width / 2);
 
 function HomeScreen({ navigation, theme }) {
   const { numSelCounters } = useContext(CountersContext);
   console.log("numSelCounters", numSelCounters);
-
+  console.log(halfScreenWidth);
   // useEffect(() => {
   //   let newNumSelected = 0;
   //   counters.forEach(counter => (counter.selected ? newNumSelected++ : null));
@@ -34,7 +42,7 @@ function HomeScreen({ navigation, theme }) {
         style={styles.gradient}
       >
         <View style={styles.contentContainer}>
-          <View
+          {/* <View
             styles={[
               styles.eyeContainer,
               numSelCounters > 0 && styles.eyeContainerAwake
@@ -58,12 +66,19 @@ function HomeScreen({ navigation, theme }) {
           </View>
           {numSelCounters === 1 && <Eye2 />}
           {numSelCounters === 2 && <Eye3 />}
-          {numSelCounters > 2 && <Eye4 />}
-          <MrCounter1 style={styles.mrCounter} />
-          {numSelCounters < 1 && <Eye1 />}
+          {numSelCounters > 2 && <Eye4 />} */}
+          <View style={styles.mrCounterContainer}>
+            <Image
+              source={require("../assets/MrCounter1.png")}
+              style={styles.mrCounter}
+            />
+          </View>
+
+          {/* <MrCounter1 style={styles.image} /> */}
+          {/* {numSelCounters < 1 && <Eye1 />}
           {numSelCounters === 1 && <Eye2 />}
           {numSelCounters === 2 && <Eye3 />}
-          {numSelCounters > 2 && <Eye4 />}
+          {numSelCounters > 2 && <Eye4 />} */}
           <View style={styles.contentContainerOutline(theme)}></View>
         </View>
         {/* <View style={styles.counterContainer}>
@@ -93,15 +108,13 @@ function HomeScreen({ navigation, theme }) {
 const styles = StyleSheet.create({
   container: {
     position: "relative",
-    flexDirection: "column",
-    paddingTop: 20,
-    // minHeight: 90,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20
+    flexDirection: "column"
   },
   contentContainer: {
+    display: "flex",
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "center",
+    alignItems: "flex-end"
     // margin: 8
     // height: "25%"
   },
@@ -129,10 +142,23 @@ const styles = StyleSheet.create({
     transform: [{ translateY: "-100%", scaleY: -1 }]
   },
   eyeLidTopAwake: {
-    transform: [{ translateY: " b0", scaleY: 1 }]
+    transform: [{ translateY: "0", scaleY: 1 }]
   },
-  gradient: { paddingTop: 20, paddingBottom: 20 },
-  mrCounter: { marginLeft: 15, marginRight: 15 }
+  gradient: {
+    paddingTop: 40,
+    paddingBottom: 20
+  },
+  mrCounterContainer: {
+    maxWidth: halfScreenWidth,
+    flex: 1,
+    marginLeft: 15,
+    marginRight: 15
+  },
+  mrCounter: {
+    width: halfScreenWidth,
+    height: halfScreenWidth / 9,
+    resizeMode: "contain"
+  }
 });
 
 export default withTheme(HomeScreen);

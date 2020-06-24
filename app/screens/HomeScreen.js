@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Button } from "react-native";
 import HomeCounter from "../components/HomeCounter";
 import Header from "../components/Header";
+import SectionTitle from "../components/SectionTitle";
 
 import colors from "../config/colors";
 import { CountersContext } from "../state/CountersContext";
@@ -26,6 +27,7 @@ function HomeScreen({ navigation, theme }) {
     <>
       <Header />
       <View style={styles.container(theme)}>
+        <SectionTitle sectionTitle={"Most recent"} />
         <View style={styles.counterContainer}>
           {counters
             ? counters.map((counter, i) => (
@@ -55,10 +57,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.primary,
     flexDirection: "column",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    padding: 8,
+    paddingTop: 12
   }),
   counterContainer: {
-    flexDirection: "column"
+    flexDirection: "column",
+    flex: 1
   },
   goButton: {
     justifyContent: "center",

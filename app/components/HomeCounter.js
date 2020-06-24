@@ -8,6 +8,8 @@ import {
   Button,
   Switch
 } from "react-native";
+import { withTheme, CheckBox } from "react-native-elements";
+
 // import { toggleSelect } from "../helpers/counterHelpers";
 import colors from "../config/colors";
 import { CountersContext } from "../state/CountersContext";
@@ -16,7 +18,7 @@ import { CountersContext } from "../state/CountersContext";
 function HomeCounter(props) {
   const { counters, setCounters } = useContext(CountersContext);
   const { title, count, selected, id } = props.counter;
-  const { numSelected } = props;
+  const { numSelected, theme } = props;
 
   // map over to return new array
   // but for this item, change selected
@@ -31,37 +33,53 @@ function HomeCounter(props) {
     );
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container(theme)}>
       <View style={styles.titles}>
-        <Text style={styles.smallText}>{title}</Text>
-        <Text style={styles.bigText}>{count}</Text>
+        <Text style={styles.titleText}>{title}</Text>
       </View>
-      <Switch
-        value={selected}
-        onValueChange={() => toggleSelect(counters, setCounters, id)}
-        disabled={!selected && numSelected === 3 ? true : false}
-      />
+      <View style={styles.rightContainer(theme)}>
+        <Switch
+          // style={styles.checkBox(theme)}
+          value={selected}
+          onValueChange={() => toggleSelect(counters, setCounters, id)}
+          disabled={!selected && numSelected === 3 ? true : false}
+        />
+        <Text style={styles.countText}>{count}</Text>
+      </View>
     </View>
   );
 }
 
 //rnss
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 24,
-    paddingVertical: 16,
+  // checkBox: theme => ({
+  //   // backgroundColor: theme.colors.PureWhite,
+  //   // margin: 0,
+  //   // padding: 0
+  // }),
+  container: theme => ({
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: colors.white
-  },
+    alignItems: "flex-start",
+    backgroundColor: theme.colors.PureWhite,
+    marginBottom: 4,
+    padding: 8
+  }),
   titles: {
     flexDirection: "column"
   },
-  smallText: {
-    fontSize: 18
-  },
-  bigText: { fontSize: 30 }
+  titleText: { fontSize: 24 },
+  countText: { fontSize: 24 },
+  rightContainer: theme => ({
+    width: "30%",
+    borderRadius: 4,
+    backgroundColor: theme.colors.LightGrey,
+    margin: 0,
+    padding: 8,
+    display: "flex",
+    alignItems: "flex-end",
+    color: theme.colors.Black
+  })
 });
 
-export default HomeCounter;
+export default withTheme(HomeCounter);
