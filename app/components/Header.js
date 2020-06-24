@@ -19,12 +19,12 @@ import MrCounter1 from "../assets/MrCounter1.png";
 import { hide } from "expo/build/launch/SplashScreen";
 
 // import MrCounter1 from "../assets/MrCounter1.png";
-const halfScreenWidth = Math.floor(Dimensions.get("window").width / 2);
+const screenWidth = Math.floor(Dimensions.get("window").width);
 
 function HomeScreen({ navigation, theme }) {
   const { numSelCounters } = useContext(CountersContext);
   console.log("numSelCounters", numSelCounters);
-  console.log(halfScreenWidth);
+  console.log(screenWidth);
   // useEffect(() => {
   //   let newNumSelected = 0;
   //   counters.forEach(counter => (counter.selected ? newNumSelected++ : null));
@@ -42,22 +42,22 @@ function HomeScreen({ navigation, theme }) {
         style={styles.gradient}
       >
         <View style={styles.contentContainer}>
-          {/* <View
-            styles={[
+          <View
+            style={[
               styles.eyeContainer,
               numSelCounters > 0 && styles.eyeContainerAwake
             ]}
           >
-            <Animated.View
-              styles={[
+            {/* <Animated.View
+              style={[
                 styles.eyeLid(theme),
                 styles.eyeLidTop,
                 numSelCounters > 0 && styles.eyeLidAwake,
                 numSelCounters > 0 && styles.eyeLidAwakeTop
               ]}
-            ></Animated.View>
+            ></Animated.View> */}
             <View
-              styles={[
+              style={[
                 styles.eyeLid(theme),
                 styles.eyeLidBottom,
                 numSelCounters > 0 && styles.eyeLidAwake
@@ -66,7 +66,7 @@ function HomeScreen({ navigation, theme }) {
           </View>
           {numSelCounters === 1 && <Eye2 />}
           {numSelCounters === 2 && <Eye3 />}
-          {numSelCounters > 2 && <Eye4 />} */}
+          {numSelCounters > 2 && <Eye4 />}
           <View style={styles.mrCounterContainer}>
             <Image
               source={require("../assets/MrCounter1.png")}
@@ -79,26 +79,36 @@ function HomeScreen({ navigation, theme }) {
           {numSelCounters === 1 && <Eye2 />}
           {numSelCounters === 2 && <Eye3 />}
           {numSelCounters > 2 && <Eye4 />} */}
+          <View
+            style={[
+              styles.eyeContainer,
+              numSelCounters > 0 && styles.eyeContainerAwake
+            ]}
+          >
+            {/* <Animated.View
+              style={[
+                styles.eyeLid(theme),
+                styles.eyeLidTop,
+                numSelCounters > 0 && styles.eyeLidAwake,
+                numSelCounters > 0 && styles.eyeLidAwakeTop
+              ]}
+            ></Animated.View> */}
+            <View
+              style={[
+                styles.eyeLid(theme),
+                styles.eyeLidBottom,
+                numSelCounters > 0 && styles.eyeLidAwake
+              ]}
+            ></View>
+          </View>
           <View style={styles.contentContainerOutline(theme)}></View>
+          <View style={styles.settingsContainer}>
+            <Image
+              source={require("../assets/Settings.png")}
+              style={styles.settings}
+            />
+          </View>
         </View>
-        {/* <View style={styles.counterContainer}>
-        {counters
-          ? counters.map((counter, i) => (
-              <HomeCounter
-                key={i}
-                counter={counter}
-                index={i}
-                numSelected={numSelected}
-              />
-            ))
-          : null}
-      </View>
-      <Button
-        title="Go ->"
-        style={styles.goButton}
-        onPress={() => navigation.navigate("Counters", { numSelected })}
-        disabled={numSelected < 1 ? true : false}
-      /> */}
       </LinearGradient>
     </View>
   );
@@ -114,7 +124,10 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "flex-end"
+    alignItems: "flex-end",
+    margin: 10,
+    paddingBottom: 15
+    // backgroundColor: "red"
     // margin: 8
     // height: "25%"
   },
@@ -126,17 +139,31 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.Beige1,
     borderBottomWidth: 1,
     borderLeftWidth: 1,
-    borderRightWidth: 1
+    borderRightWidth: 1,
+    height: 15,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5
   }),
-  eyeContainer: {},
-  eyeLid: theme => ({
+  eyeContainer: {
+    position: "relative",
     width: 24,
-    height: 12,
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
+    height: 24,
+    borderRadius: 50
+    // borderWidth: 1
+    // backgroundColor: "green"
+  },
+  eyeLid: theme => ({
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
     borderWidth: 1,
+    borderTopWidth: 0,
     borderColor: theme.colors.primary,
-    overflow: "hidden"
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: 12
+    // overflow: "hidden"
   }),
   eyeLidTop: {
     transform: [{ translateY: "-100%", scaleY: -1 }]
@@ -146,17 +173,34 @@ const styles = StyleSheet.create({
   },
   gradient: {
     paddingTop: 40,
-    paddingBottom: 20
+    paddingBottom: 0
   },
   mrCounterContainer: {
-    maxWidth: halfScreenWidth,
+    maxWidth: screenWidth / 2,
     flex: 1,
     marginLeft: 15,
     marginRight: 15
   },
   mrCounter: {
-    width: halfScreenWidth,
-    height: halfScreenWidth / 9,
+    width: screenWidth / 2,
+    height: screenWidth / 16,
+    resizeMode: "contain"
+  },
+  settingsContainer: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+    bottom: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    maxWidth: screenWidth * 0.064,
+    paddingBottom: 15,
+    paddingRight: 15
+  },
+  settings: {
+    width: screenWidth * 0.064,
+    height: screenWidth * 0.064,
     resizeMode: "contain"
   }
 });
