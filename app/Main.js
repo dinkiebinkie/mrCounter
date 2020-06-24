@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, SafeAreaView, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, useHeaderHeight } from "@react-navigation/stack";
 import { CountersContext } from "./state/CountersContext";
 import { guidGenerator } from "./helpers";
 import { ThemeProvider } from "react-native-elements";
@@ -113,21 +113,23 @@ function Main(props) {
               <Stack.Screen
                 name="Home"
                 component={HomeScreen}
-                options={{
-                  headerTitle: props => <Header {...props} />,
-                  headerStatusBarHeight: 0,
-                  headerStyle: {
-                    backgroundColor: "transparent",
-                    elevation: 0,
-                    shadowOpacity: 0
-                  },
-                  headerTitleContainerStyle: {
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0
-                  }
-                }}
+                options={{ headerShown: false }}
+                // options={{
+                //   headerTitle: props => <Header {...props} />,
+                //   headerStatusBarHeight: 900,
+                //   headerStyle: {
+                //     backgroundColor: "transparent",
+                //     elevation: 0,
+                //     shadowOpacity: 0,
+                //     height: 900
+                //   },
+                //   headerTitleContainerStyle: {
+                //     left: 0,
+                //     right: 0,
+                //     top: 0,
+                //     bottom: 0
+                //   }
+                // }}
               />
               <Stack.Screen
                 name="Counters"
@@ -146,8 +148,8 @@ function Main(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "green"
+    flex: 1
+    // backgroundColor: "green"
     // backgroundColor: theme.colors.primary
   }
 });

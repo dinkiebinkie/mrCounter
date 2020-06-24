@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Button } from "react-native";
 import HomeCounter from "../components/HomeCounter";
+import Header from "../components/Header";
+
 import colors from "../config/colors";
 import { CountersContext } from "../state/CountersContext";
 import { withTheme } from "react-native-elements";
@@ -21,26 +23,29 @@ function HomeScreen({ navigation, theme }) {
   });
 
   return (
-    <View style={styles.container(theme)}>
-      <View style={styles.counterContainer}>
-        {counters
-          ? counters.map((counter, i) => (
-              <HomeCounter
-                key={i}
-                counter={counter}
-                index={i}
-                numSelected={numSelected}
-              />
-            ))
-          : null}
+    <>
+      <Header />
+      <View style={styles.container(theme)}>
+        <View style={styles.counterContainer}>
+          {counters
+            ? counters.map((counter, i) => (
+                <HomeCounter
+                  key={i}
+                  counter={counter}
+                  index={i}
+                  numSelected={numSelected}
+                />
+              ))
+            : null}
+        </View>
+        <Button
+          title="Go ->"
+          style={styles.goButton}
+          onPress={() => navigation.navigate("Counters", { numSelected })}
+          disabled={numSelected < 1 ? true : false}
+        />
       </View>
-      <Button
-        title="Go ->"
-        style={styles.goButton}
-        onPress={() => navigation.navigate("Counters", { numSelected })}
-        disabled={numSelected < 1 ? true : false}
-      />
-    </View>
+    </>
   );
 }
 
