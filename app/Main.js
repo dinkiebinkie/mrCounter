@@ -23,7 +23,9 @@ const theme = {
     Black: "#2E2B2B",
     PureWhite: "#FFFFFF",
     DeepBeige: "#897A5E",
-    DarkBeige: "#AAA191"
+    DarkBeige: "#AAA191",
+    MidBlue: "#88BFFF",
+    Blue: "1681FF"
   }
 };
 
@@ -68,9 +70,12 @@ function Main(props) {
   }, []);
 
   // ensure number of selected state is accurate
-  const countSelectedThenSet = () => {
+  const countSelectedThenSet = newCounters => {
     let numSelected = 0;
-    counters.forEach(counter => (counter.selected ? numSelected++ : null));
+    let useCounters = newCounters ? newCounters : counters;
+    useCounters.forEach(counter =>
+      counter.selected === true ? numSelected++ : null
+    );
     setNumSelCounters(numSelected);
   };
 
@@ -97,15 +102,16 @@ function Main(props) {
   };
 
   // find counter by id then toggle selected state
-  const toggleSelect = id =>
-    setCounters(
-      counters.map((counter, i) => {
-        if (counter.id !== id) return counter;
-        const newCounter = { ...counter };
-        newCounter.selected = !counter.selected;
-        return newCounter;
-      })
-    );
+  const toggleSelect = id => {
+    const newCounters = counters.map((counter, i) => {
+      if (counter.id !== id) return counter;
+      const newCounter = { ...counter };
+      newCounter.selected = !counter.selected;
+      return newCounter;
+    });
+    setCounters(newCounters);
+    return countSelectedThenSet(newCounters);
+  };
 
   return (
     <ThemeProvider theme={theme}>
