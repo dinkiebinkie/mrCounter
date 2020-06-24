@@ -67,29 +67,45 @@ function Main(props) {
     countSelectedThenSet();
   }, []);
 
+  // ensure number of selected state is accurate
   const countSelectedThenSet = () => {
     let numSelected = 0;
     counters.forEach(counter => (counter.selected ? numSelected++ : null));
     setNumSelCounters(numSelected);
   };
 
+  // add a new counter with a title
   const addCounter = (title, count) => {
     const newCounter = {
       title,
-      count,
+      count: count >= 0 ? count : 0,
       id: guidGenerator(),
       selected: false,
       incrementAmount: 1
     };
+
     setCounters([...counters, newCounter]);
     return countSelectedThenSet();
   };
+
+  // find counter by id remove
   const removeCounter = id => {
     const newCounters = [...counters];
     const indexOfCounter = newCounters.findIndex(counter => counter.id === id);
     setCounters(newCounters.splice(indexOfCounter, 1));
     return countSelectedThenSet();
   };
+
+  // find counter by id then toggle selected state
+  const toggleSelect = id =>
+    setCounters(
+      counters.map((counter, i) => {
+        if (counter.id !== id) return counter;
+        const newCounter = { ...counter };
+        newCounter.selected = !counter.selected;
+        return newCounter;
+      })
+    );
 
   return (
     <ThemeProvider theme={theme}>
@@ -100,7 +116,8 @@ function Main(props) {
           numSelCounters,
           countSelectedThenSet,
           addCounter,
-          removeCounter
+          removeCounter,
+          toggleSelect
         }}
       >
         <NavigationContainer>

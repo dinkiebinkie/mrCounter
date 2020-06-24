@@ -1,13 +1,5 @@
 import React, { useContext } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  StatusBar,
-  Button,
-  Switch
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Switch } from "react-native";
 import { withTheme, CheckBox } from "react-native-elements";
 
 // import { toggleSelect } from "../helpers/counterHelpers";
@@ -16,24 +8,15 @@ import { CountersContext } from "../state/CountersContext";
 
 //rsf
 function HomeCounter(props) {
-  const { counters, setCounters } = useContext(CountersContext);
+  const { toggleSelect } = useContext(CountersContext);
   const { title, count, selected, id } = props.counter;
   const { numSelected, theme } = props;
 
-  // map over to return new array
-  // but for this item, change selected
-  const toggleSelect = (counters, setCounters, id) =>
-    setCounters(
-      counters.map((counter, i) => {
-        if (counter.id !== id) return counter;
-        const newCounter = { ...counter };
-        newCounter.selected = !counter.selected;
-        return newCounter;
-      })
-    );
-
   return (
-    <View style={styles.container(theme)}>
+    <TouchableOpacity
+      style={styles.container(theme)}
+      onPress={() => toggleSelect(id)}
+    >
       <View style={styles.titles}>
         <Text style={styles.titleText}>{title}</Text>
       </View>
@@ -41,12 +24,12 @@ function HomeCounter(props) {
         <Switch
           // style={styles.checkBox(theme)}
           value={selected}
-          onValueChange={() => toggleSelect(counters, setCounters, id)}
-          disabled={!selected && numSelected === 3 ? true : false}
+          onValueChange={() => toggleSelect(id)}
+          // disabled={!selected && numSelected === 3 ? true : false}
         />
         <Text style={styles.countText}>{count}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
