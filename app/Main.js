@@ -20,12 +20,15 @@ const theme = {
     primary: "#EAE6E1",
     Beige1: "#EAE6E1",
     LightGrey: "#F2F3F3",
+
+    Grey1: "#4D4D4D",
+    Grey3: "#979797",
     Black: "#2E2B2B",
     PureWhite: "#FFFFFF",
     DeepBeige: "#897A5E",
     DarkBeige: "#AAA191",
     MidBlue: "#88BFFF",
-    Blue: "1681FF"
+    Blue: "#1681FF"
   }
 };
 

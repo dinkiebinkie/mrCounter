@@ -5,7 +5,7 @@ import { CountersContext } from "../state/CountersContext";
 import { withTheme } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
 
-function HomeScreen({ sectionTitle, theme }) {
+function SectionTitle({ sectionTitle, theme }) {
   const { counters } = useContext(CountersContext);
 
   return (
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
   })
 });
 
-export default withTheme(HomeScreen);
+export default withTheme(SectionTitle);

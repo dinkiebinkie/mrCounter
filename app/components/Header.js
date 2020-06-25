@@ -44,7 +44,6 @@ function HomeScreen({ navigation, theme }) {
   useEffect(() => {
     if (numSelCounters === 0 && isEyeAwake !== false) {
       setIsEyeAwake(false);
-      // eyeDown.setValue(50);
       Animated.timing(eyePos, {
         toValue: 50,
         duration: 600,
@@ -85,7 +84,6 @@ function HomeScreen({ navigation, theme }) {
       }).start();
     }
     if (numSelCounters === 1) {
-      console.log("numSelCounters === 1");
       setIsEyeAwake(true);
 
       // Eyeball moving up
@@ -145,10 +143,8 @@ function HomeScreen({ navigation, theme }) {
         easing: Easing.inOut(Easing.linear)
       }).start();
     }
-    console.log("numSelCounters", numSelCounters);
-    if (numSelCounters === 2) {
-      console.log("numSelCounters === 2");
 
+    if (numSelCounters === 2) {
       Animated.timing(eyeRingSizeOp2, {
         toValue: 1,
         duration: 100,
@@ -187,7 +183,6 @@ function HomeScreen({ navigation, theme }) {
     }
 
     if (numSelCounters >= 3) {
-      console.log("numSelCounters >= 3");
       Animated.timing(eyeRingSizeOp3, {
         toValue: 1,
         duration: 100,
@@ -211,8 +206,6 @@ function HomeScreen({ navigation, theme }) {
       setIsEyeAwake(true);
     }
   }, [numSelCounters]);
-
-  console.log("numSelCounters", numSelCounters);
 
   return (
     <View style={styles.container}>
