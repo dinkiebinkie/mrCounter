@@ -21,17 +21,21 @@ import Eye4 from "../assets/Eye4.svg";
 import MrCounter1 from "../assets/MrCounter1.png";
 import { hide } from "expo/build/launch/SplashScreen";
 
-// import MrCounter1 from "../assets/MrCounter1.png";
 const screenWidth = Math.floor(Dimensions.get("window").width);
-
-const eyeSleep = -50;
-const eyeAwake = 0;
+const eyeWidth = 32;
 
 function HomeScreen({ navigation, theme }) {
   const [isEyeAwake, setIsEyeAwake] = useState(false);
   const eyePos = useRef(new Animated.Value(50)).current;
   const eyeLidPos = useRef(new Animated.Value(1)).current;
-  const eyeBgHeight = useRef(new Animated.Value(0)).current;
+  const eyeBgHeight = useRef(new Animated.Value(eyeWidth)).current;
+  const eyeRingSizeOp = useRef(new Animated.Value(0)).current;
+  const eyeRingSize1 = useRef(new Animated.Value(32)).current;
+  const eyeRingSize2 = useRef(new Animated.Value(32)).current;
+  const eyeRingSize3 = useRef(new Animated.Value(32)).current;
+  const eyeRingSize4 = useRef(new Animated.Value(32)).current;
+  const eyeRingSize5 = useRef(new Animated.Value(32)).current;
+  const eyeRingSize6 = useRef(new Animated.Value(32)).current;
 
   const { numSelCounters } = useContext(CountersContext);
 
@@ -41,21 +45,40 @@ function HomeScreen({ navigation, theme }) {
       // eyeDown.setValue(50);
       Animated.timing(eyePos, {
         toValue: 50,
-        duration: 750,
+        duration: 600,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
       // Eyelid moving down
       Animated.timing(eyeLidPos, {
         toValue: 1,
-        duration: 750,
+        duration: 600,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
-      // Eyelid bg closing
+      // Eyelid bg closing (whites of eyes)
       Animated.timing(eyeBgHeight, {
+        toValue: eyeWidth,
+        duration: 600,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSizeOp, {
         toValue: 0,
-        duration: 750,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      // make eye rings retract
+      Animated.timing(eyeRingSize1, {
+        toValue: 32,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize2, {
+        toValue: 32,
+        duration: 200,
         easing: Easing.inOut(Easing.linear)
       }).start();
     }
@@ -65,41 +88,102 @@ function HomeScreen({ navigation, theme }) {
       // Eyeball moving up
       Animated.timing(eyePos, {
         toValue: 0,
-        duration: 750,
+        duration: 600,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
       // Eyelid moving up
       Animated.timing(eyeLidPos, {
         toValue: -1,
-        duration: 750,
+        duration: 600,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
       // EyeBg opening
       Animated.timing(eyeBgHeight, {
+        toValue: 0,
+        duration: 600,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSizeOp, {
+        toValue: 1,
+        duration: 200,
+        delay: 400,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize1, {
         toValue: 32,
-        duration: 750,
+        duration: 200,
+        delay: 400,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize2, {
+        toValue: 36,
+        duration: 200,
+        delay: 400,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize3, {
+        toValue: 32,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize4, {
+        toValue: 32,
+        duration: 200,
         easing: Easing.inOut(Easing.linear)
       }).start();
     }
+
+    if (numSelCounters === 2) {
+      Animated.timing(eyeRingSize3, {
+        toValue: 40,
+        duration: 600,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize4, {
+        toValue: 44,
+        duration: 600,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize5, {
+        toValue: 32,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize6, {
+        toValue: 32,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+    }
+
+    if (numSelCounters >= 3) {
+      Animated.timing(eyeRingSize5, {
+        toValue: 48,
+        duration: 600,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize6, {
+        toValue: 52,
+        duration: 600,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+    }
+
     if (numSelCounters >= 1) {
       setIsEyeAwake(true);
     }
-    // console.log(numSelCounters, isEyeAwake);
   }, [numSelCounters]);
-
-  // const bottom1 = eyePos1.interpolate({
-  //   inputRange: [0, 1],
-  //   outputRange: [-50, 0]
-  // });
-
-  // const bottom2 = eyePos2.interpolate({
-  //   inputRange: [0, 1],
-  //   outputRange: [-50, 0]
-  // });
-
-  console.log(numSelCounters > 0, eyePos);
 
   return (
     <View style={styles.container}>
@@ -109,86 +193,227 @@ function HomeScreen({ navigation, theme }) {
       >
         <View style={styles.contentContainer}>
           <View style={styles.eyeContainer}>
-            <Animated.View
-              style={[
-                styles.eyeLid(theme),
-                styles.eyeLidTop,
-                numSelCounters > 0 && styles.eyeLidAwake,
-                { transform: [{ scaleY: eyeLidPos }] }
-              ]}
-            ></Animated.View>
-            <Animated.View
-              style={[
-                styles.eyeBallCenter,
-                {
-                  top: eyePos
-                }
-              ]}
-            >
-              <View
+            {/* Hide these components when outside of eye */}
+            <View style={styles.eyeContainerHidden}>
+              {/* top eyelid */}
+              <Animated.View
                 style={[
-                  styles.eyeBall(theme),
-                  numSelCounters > 0 && styles.eyeBallAwake
+                  styles.eyeLid(theme),
+                  styles.eyeLidTop,
+                  numSelCounters > 0 && styles.eyeLidAwake,
+                  { transform: [{ scaleY: eyeLidPos }] }
+                ]}
+              ></Animated.View>
+              {/* eyeball and pupil */}
+              <Animated.View
+                style={[
+                  styles.eyeBallCenter,
+                  {
+                    top: eyePos
+                  }
                 ]}
               >
-                <View style={styles.eyeBallPupil(theme)}></View>
-              </View>
-            </Animated.View>
-            <View
-              style={[
-                styles.eyeLid(theme),
-                styles.eyeLidBottom,
-                numSelCounters > 0 && styles.eyeLidAwake
-              ]}
-            ></View>
-            <Animated.View
-              style={[styles.eyeLid(theme), { height: eyeBgHeight }]}
-            ></Animated.View>
-            <View style={styles.eyeBgContainer}>
+                <View
+                  style={[
+                    styles.eyeBall(theme),
+                    numSelCounters > 0 && styles.eyeBallAwake
+                  ]}
+                >
+                  <View style={styles.eyeBallPupil(theme)}></View>
+                </View>
+              </Animated.View>
+              {/* bottom half of eyelid */}
+              <View
+                style={[
+                  styles.eyeLid(theme),
+                  styles.eyeLidBottom,
+                  numSelCounters > 0 && styles.eyeLidAwake(theme)
+                ]}
+              ></View>
+              {/* Whites of Eye */}
               <Animated.View
-                style={[styles.eyeBg, { height: eyeLidPos }]}
+                style={[styles.eyeBg, { top: eyeBgHeight }]}
+              ></Animated.View>
+            </View>
+            {/* Eye Rings - Outside of Hidden container */}
+            {/* {isEyeAwake && ( */}
+            <View style={styles.eyeRingCenter}>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize1,
+                    height: eyeRingSize1,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
+              ></Animated.View>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize2,
+                    height: eyeRingSize2,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
+              ></Animated.View>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize3,
+                    height: eyeRingSize3,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
+              ></Animated.View>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize4,
+                    height: eyeRingSize4,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
+              ></Animated.View>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize5,
+                    height: eyeRingSize5,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
+              ></Animated.View>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize6,
+                    height: eyeRingSize6,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
               ></Animated.View>
             </View>
           </View>
-          {/* {numSelCounters === 1 && <Eye2 />}
-          {numSelCounters === 2 && <Eye3 />}
-          {numSelCounters > 2 && <Eye4 />} */}
-          <TouchableWithoutFeedback
-            // onPress={eyesWakeUp}
-            style={styles.mrCounterContainer}
-          >
+
+          <TouchableWithoutFeedback style={styles.mrCounterContainer}>
             <Image
               source={require("../assets/MrCounter1.png")}
               style={styles.mrCounter}
             />
           </TouchableWithoutFeedback>
-
-          {/* <MrCounter1 style={styles.image} /> */}
-          {/* {numSelCounters < 1 && <Eye1 />}
-          {numSelCounters === 1 && <Eye2 />}
-          {numSelCounters === 2 && <Eye3 />}
-          {numSelCounters > 2 && <Eye4 />} */}
-          <View
-            style={[
-              styles.eyeContainer,
-              numSelCounters > 0 && styles.eyeContainerAwake
-            ]}
-          >
-            <Animated.View
-              style={[
-                styles.eyeLid(theme),
-                styles.eyeLidTop,
-                numSelCounters > 0 && styles.eyeLidAwake,
-                numSelCounters > 0 && styles.eyeLidAwakeTop
-              ]}
-            ></Animated.View>
-            <View
-              style={[
-                styles.eyeLid(theme),
-                styles.eyeLidBottom,
-                numSelCounters > 0 && styles.eyeLidAwake
-              ]}
-            ></View>
+          <View style={styles.eyeContainer}>
+            {/* Hide these components when outside of eye */}
+            <View style={styles.eyeContainerHidden}>
+              {/* top eyelid */}
+              <Animated.View
+                style={[
+                  styles.eyeLid(theme),
+                  styles.eyeLidTop,
+                  numSelCounters > 0 && styles.eyeLidAwake,
+                  { transform: [{ scaleY: eyeLidPos }] }
+                ]}
+              ></Animated.View>
+              {/* eyeball and pupil */}
+              <Animated.View
+                style={[
+                  styles.eyeBallCenter,
+                  {
+                    top: eyePos
+                  }
+                ]}
+              >
+                <View
+                  style={[
+                    styles.eyeBall(theme),
+                    numSelCounters > 0 && styles.eyeBallAwake
+                  ]}
+                >
+                  <View style={styles.eyeBallPupil(theme)}></View>
+                </View>
+              </Animated.View>
+              {/* bottom half of eyelid */}
+              <View
+                style={[
+                  styles.eyeLid(theme),
+                  styles.eyeLidBottom,
+                  numSelCounters > 0 && styles.eyeLidAwake(theme)
+                ]}
+              ></View>
+              {/* Whites of Eye */}
+              <Animated.View
+                style={[styles.eyeBg, { top: eyeBgHeight }]}
+              ></Animated.View>
+            </View>
+            {/* Eye Rings - Outside of Hidden container */}
+            {/* {isEyeAwake && ( */}
+            <View style={styles.eyeRingCenter}>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize1,
+                    height: eyeRingSize1,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
+              ></Animated.View>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize2,
+                    height: eyeRingSize2,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
+              ></Animated.View>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize3,
+                    height: eyeRingSize3,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
+              ></Animated.View>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize4,
+                    height: eyeRingSize4,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
+              ></Animated.View>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize5,
+                    height: eyeRingSize5,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
+              ></Animated.View>
+              <Animated.View
+                style={[
+                  styles.eyeAwakeRing(theme),
+                  {
+                    width: eyeRingSize6,
+                    height: eyeRingSize6,
+                    opacity: eyeRingSizeOp
+                  }
+                ]}
+              ></Animated.View>
+            </View>
           </View>
           <View style={styles.contentContainerOutline(theme)}></View>
           <View style={styles.settingsContainer}>
@@ -239,6 +464,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.Blue,
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 10000,
     borderRadius: 50
   }),
   eyeBallCenter: {
@@ -258,27 +484,61 @@ const styles = StyleSheet.create({
     borderRadius: 50
   }),
   eyeBg: {
-    width: 32,
-    backgroundColor: "#FFFFFF"
-  },
-  eyeBgContainer: {
+    backgroundColor: "#FFFFFF",
     position: "absolute",
     left: 0,
     bottom: 0,
     right: 0,
+    zIndex: 0
+  },
+  // eyeBgContainer: {
+  //   position: "absolute",
+  //   left: 0,
+  //   bottom: 0,
+  //   right: 0,
+  //   top: 0,
+  //   borderRadius: 50,
+  //   overflow: "hidden"
+  // },
+  eyeContainer: {
+    position: "relative",
+    width: eyeWidth,
+    height: eyeWidth,
+    borderRadius: 50,
+    backgroundColor: "transparent"
+  },
+  eyeContainerHidden: {
+    position: "absolute",
     top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     borderRadius: 50,
     overflow: "hidden"
   },
-  eyeContainer: {
-    position: "relative",
-    width: 32,
-    height: 32,
-    borderRadius: 50,
-    overflow: "hidden",
-    backgroundColor: "transparent"
-  },
   eyeContainerAwake: { backgroundColor: "#FFFFFF" },
+  eyeAwakeRing: theme => ({
+    position: "absolute",
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: theme.colors.DarkBeige,
+    zIndex: 0
+  }),
+  eyeRingCenter: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  eyeLidAwake: theme => ({
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: theme.colors.DarkBeige
+  }),
   eyeLid: theme => ({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
@@ -292,9 +552,10 @@ const styles = StyleSheet.create({
     height: 16
     // overflow: "hidden"
   }),
-  eyeLidTop: {
-    height: 32
-  },
+  // eyeLidTop: {
+  //   height: eyeWidth
+  // },
+
   gradient: {
     paddingTop: 40,
     paddingBottom: 0
@@ -303,7 +564,8 @@ const styles = StyleSheet.create({
     maxWidth: screenWidth / 2,
     flex: 1,
     marginLeft: 15,
-    marginRight: 15
+    marginRight: 15,
+    zIndex: 10000
   },
   mrCounter: {
     width: screenWidth / 2,
