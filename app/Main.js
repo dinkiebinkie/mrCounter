@@ -27,8 +27,9 @@ const theme = {
     PureWhite: "#FFFFFF",
     DeepBeige: "#897A5E",
     DarkBeige: "#AAA191",
+    Blue: "#1681FF",
     MidBlue: "#88BFFF",
-    Blue: "#1681FF"
+    LightBlue: "#E8F2FF"
   }
 };
 
@@ -44,28 +45,32 @@ function Main(props) {
         title: "Counter 1",
         count: 10,
         selected: false,
-        incrementAmount: 1
+        incrementAmount: 1,
+        selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
       },
       {
         id: 1,
         title: "Counter 2",
         count: 100,
         selected: false,
-        incrementAmount: 1
+        incrementAmount: 1,
+        selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
       },
       {
         id: 2,
         title: "Counter 3",
         count: 1000,
         selected: false,
-        incrementAmount: 1
+        incrementAmount: 1,
+        selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
       },
       {
         id: 3,
         title: "Counter 4",
         count: 10000,
         selected: false,
-        incrementAmount: 1
+        incrementAmount: 1,
+        selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
       }
     ]);
 
