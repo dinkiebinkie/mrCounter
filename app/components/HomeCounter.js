@@ -1,16 +1,13 @@
 import React, { useContext } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Switch } from "react-native";
-import { withTheme, CheckBox } from "react-native-elements";
-
-// import { toggleSelect } from "../helpers/counterHelpers";
-import colors from "../config/colors";
+import { withTheme } from "react-native-elements";
 import { CountersContext } from "../state/CountersContext";
 
 //rsf
 function HomeCounter(props) {
-  const { toggleSelect } = useContext(CountersContext);
+  const { toggleSelect, numSelCounters } = useContext(CountersContext);
   const { title, count, selected, id, selectedSlant } = props.counter;
-  const { numSelected, theme } = props;
+  const { theme } = props;
 
   return (
     <TouchableOpacity
@@ -44,7 +41,6 @@ function HomeCounter(props) {
           thumbColor={selected ? theme.colors.Blue : theme.colors.PureWhite}
           value={selected}
           onValueChange={() => toggleSelect(id)}
-          // disabled={!selected && numSelected === 3 ? true : false}
         />
         <Text style={styles.countText}>{count}</Text>
       </View>

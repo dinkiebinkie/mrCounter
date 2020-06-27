@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   View,
-  Button,
   Animated,
   Image,
   Dimensions,
@@ -12,14 +11,6 @@ import {
 import { CountersContext } from "../state/CountersContext";
 import { withTheme } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
-import * as Animatable from "react-native-animatable";
-
-import Eye1 from "../assets/Eye1.svg";
-import Eye2 from "../assets/Eye2.svg";
-import Eye3 from "../assets/Eye3.svg";
-import Eye4 from "../assets/Eye4.svg";
-import MrCounter1 from "../assets/MrCounter1.png";
-import { hide } from "expo/build/launch/SplashScreen";
 
 const screenWidth = Math.floor(Dimensions.get("window").width);
 const eyeWidth = 32;
@@ -115,7 +106,7 @@ function HomeScreen({ navigation, theme }) {
 
       Animated.timing(eyeRingSizeOp2, {
         toValue: 0,
-        duration: 100,
+        duration: 400,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
@@ -153,7 +144,7 @@ function HomeScreen({ navigation, theme }) {
 
       Animated.timing(eyeRingSizeOp3, {
         toValue: 0,
-        duration: 100,
+        duration: 400,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
