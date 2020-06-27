@@ -6,7 +6,8 @@ import {
   Dimensions,
   Easing,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableWithoutFeedback
 } from "react-native";
 import { CountersContext } from "../state/CountersContext";
 import { withTheme } from "react-native-elements";
@@ -15,8 +16,8 @@ const screenWidth = Math.floor(Dimensions.get("window").width);
 const containerMargin = 4;
 
 function HomeScreen({ navigation, theme }) {
-  const { numSelCounters } = useContext(CountersContext);
-  const goWidth = useRef(new Animated.Value(0)).current;
+  const { numSelCounters, addCounter } = useContext(CountersContext);
+  const goWidth = useRef(new Animated.Value(100)).current;
   const newWidth = useRef(new Animated.Value(screenWidth - containerMargin * 2))
     .current;
   const goOpacity = useRef(new Animated.Value(0)).current;
@@ -72,7 +73,6 @@ function HomeScreen({ navigation, theme }) {
           styles.newButton(theme),
           { width: newWidth }
         ]}
-        onPress={() => console.log("add new counter!!")}
       >
         <View
           style={[
@@ -83,6 +83,10 @@ function HomeScreen({ navigation, theme }) {
           <Text style={styles.buttonText}>+</Text>
         </View>
         <Text style={styles.buttonText}>New</Text>
+        <TouchableOpacity
+          style={styles.buttonPress}
+          onPress={() => addCounter()}
+        />
       </Animated.View>
       <Animated.View
         style={[
@@ -90,7 +94,6 @@ function HomeScreen({ navigation, theme }) {
           styles.goButton(theme),
           { width: goWidth, opacity: goOpacity }
         ]}
-        onPress={() => navigation.navigate("Counters", { numSelCounters })}
         disabled={numSelCounters < 1 ? true : false}
       >
         <Text style={styles.buttonText}>Go Count</Text>
@@ -99,6 +102,10 @@ function HomeScreen({ navigation, theme }) {
         >
           <Text style={styles.buttonText}>></Text>
         </View>
+        <TouchableOpacity
+          style={styles.buttonPress}
+          onPress={() => navigation.navigate("Counters")}
+        />
       </Animated.View>
     </View>
   );
@@ -128,6 +135,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between"
   },
+  buttonPress: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderRadius: 8
+  },
   buttonText: {
     color: "white",
     textTransform: "uppercase",
@@ -139,7 +154,8 @@ const styles = StyleSheet.create({
   }),
   goButton: theme => ({
     backgroundColor: theme.colors.Grey1,
-    paddingLeft: 12
+    paddingLeft: 12,
+    marginLeft: 8
   })
 });
 

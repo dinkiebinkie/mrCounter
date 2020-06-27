@@ -7,7 +7,6 @@ import { CountersContext } from "../state/CountersContext";
 //rsf
 function HomeScreen({ route }) {
   const { counters } = useContext(CountersContext);
-  const { numSelected } = route.params;
 
   return (
     <View style={styles.container}>
@@ -15,12 +14,7 @@ function HomeScreen({ route }) {
         {counters
           ? counters.map((counter, i) =>
               counter.selected ? (
-                <Counter
-                  key={i}
-                  counter={counter}
-                  index={i}
-                  numSelected={numSelected}
-                />
+                <Counter key={i} counter={counter} index={i} />
               ) : null
             )
           : null}

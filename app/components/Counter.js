@@ -15,8 +15,10 @@ import { CountersContext } from "../state/CountersContext";
 // const windowHeight = Dimensions.get("window").height;
 
 //rsf
-function HomeCounter({ counter, numSelected, index }) {
-  const { counters, setCounters } = useContext(CountersContext);
+function HomeCounter({ counter, index }) {
+  const { counters, setCounters, numSelectedCounters } = useContext(
+    CountersContext
+  );
 
   const [compHeight, setCompHeight] = useState(0);
   const [compWidth, setCompWidth] = useState(0);
@@ -42,8 +44,8 @@ function HomeCounter({ counter, numSelected, index }) {
       style={[
         styles.container,
         {
-          paddingBottom: numSelected === index ? 0 : "1%",
-          height: `${100 / numSelected}%`
+          paddingBottom: numSelectedCounters === index ? 0 : "1%",
+          height: `${100 / numSelectedCounters}%`
         }
       ]}
     >

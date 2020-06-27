@@ -55,22 +55,6 @@ function Main(props) {
         selected: false,
         incrementAmount: 1,
         selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
-      },
-      {
-        id: 2,
-        title: "Counter 3",
-        count: 1000,
-        selected: false,
-        incrementAmount: 1,
-        selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
-      },
-      {
-        id: 3,
-        title: "Counter 4",
-        count: 10000,
-        selected: false,
-        incrementAmount: 1,
-        selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
       }
     ]);
 
@@ -90,11 +74,12 @@ function Main(props) {
   // add a new counter with a title
   const addCounter = (title, count) => {
     const newCounter = {
-      title,
+      title: title ? title : `Counter ${counters.length + 1}`,
       count: count >= 0 ? count : 0,
       id: guidGenerator(),
       selected: false,
-      incrementAmount: 1
+      incrementAmount: 1,
+      selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
     };
 
     setCounters([...counters, newCounter]);
@@ -121,6 +106,19 @@ function Main(props) {
     return countSelectedThenSet(newCounters);
   };
 
+  // edit counter by id
+  const editCounter = (id, key, value) => {
+    const newCounters = [...counters];
+    const indexOfCounter = newCounters.findIndex(counter => counter.id === id);
+    const newCounter = { ...counters[indexOfCounter] };
+    newCounter[key] = value;
+
+    newCounters[indexOfCounter] = newCounter;
+
+    setCounters(newCounters);
+    return countSelectedThenSet();
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CountersContext.Provider
@@ -131,7 +129,8 @@ function Main(props) {
           countSelectedThenSet,
           addCounter,
           removeCounter,
-          toggleSelect
+          toggleSelect,
+          editCounter
         }}
       >
         <NavigationContainer>
