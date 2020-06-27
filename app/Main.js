@@ -108,6 +108,7 @@ function Main(props) {
 
   // edit counter by id
   const editCounter = (id, key, value) => {
+    console.log(id, key, value);
     const newCounters = [...counters];
     const indexOfCounter = newCounters.findIndex(counter => counter.id === id);
     const newCounter = { ...counters[indexOfCounter] };

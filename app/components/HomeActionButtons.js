@@ -22,8 +22,6 @@ function HomeScreen({ navigation, theme }) {
     .current;
   const goOpacity = useRef(new Animated.Value(0)).current;
 
-  console.log(screenWidth - containerMargin * 2);
-
   useEffect(() => {
     if (numSelCounters === 0) {
       Animated.timing(goWidth, {

@@ -1,13 +1,46 @@
-import React, { useContext } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Switch } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Switch,
+  TextInput,
+  Keyboard
+} from "react-native";
 import { withTheme } from "react-native-elements";
 import { CountersContext } from "../state/CountersContext";
 
 //rsf
-function HomeCounter(props) {
-  const { toggleSelect, numSelCounters } = useContext(CountersContext);
-  const { title, count, selected, id, selectedSlant } = props.counter;
-  const { theme } = props;
+function HomeCounter({ theme, counter }) {
+  const { title, count, selected, id, selectedSlant } = counter;
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [titleValue, setTitleValue] = useState(title);
+  const { toggleSelect, editCounter } = useContext(CountersContext);
+
+  // useEffect(() => {
+  //   Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+  //   // cleanup function
+  //   return () => {
+  //     Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+  //   };
+  // }, []);
+
+  // const _keyboardDidHide = () => submitTitle();
+
+  const toggleEditing = () => {
+    console.log(isEditing);
+    setIsEditing(prevEditing => (prevEditing ? false : true));
+    if (isEditing) titleInput.focus();
+  };
+
+  const submitTitle = () => {
+    setIsEditing(false);
+    editCounter(id, "title", titleValue);
+  };
 
   return (
     <TouchableOpacity
@@ -24,9 +57,22 @@ function HomeCounter(props) {
       ]}
       onPress={() => toggleSelect(id)}
     >
-      <View style={styles.titles}>
-        <Text style={styles.titleText}>{title}</Text>
-      </View>
+      <TouchableWithoutFeedback style={styles.titles} onPress={toggleEditing}>
+        {isEditing ? (
+          <TextInput
+            autoFocus={true}
+            value={titleValue}
+            style={styles.titleText}
+            onChangeText={text => setTitleValue(text)}
+            onSubmitEditing={() => submitTitle()}
+            numberOfLines={1}
+          />
+        ) : (
+          <Text numberOfLines={2} style={styles.titleText}>
+            {title}
+          </Text>
+        )}
+      </TouchableWithoutFeedback>
       <View
         style={[
           styles.rightContainer(theme),
@@ -71,9 +117,12 @@ const styles = StyleSheet.create({
   },
   countText: { fontSize: 24 },
   titles: {
-    flexDirection: "column"
+    flexDirection: "column",
+    backgroundColor: "red",
+    marginRight: "2%"
   },
-  titleText: { fontSize: 24 },
+  titleText: { fontSize: 24, width: "68%" },
+  // titleTextSize:width: "68%",
   rightContainer: theme => ({
     width: "30%",
     borderRadius: 4,
