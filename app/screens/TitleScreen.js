@@ -1,15 +1,9 @@
 import React, { useContext } from "react";
 import { StyleSheet, View, Button, Text } from "react-native";
-import Counter from "../components/Counter";
 import colors from "../config/colors";
-import titleScreenBg from "../assets/titleScreenBg.png";
-// import { CountersContext } from "../state/CountersContext";
 
 //rsf
 function HomeScreen({ route }) {
-  // const { counters } = useContext(CountersContext);
-  // const { numSelected } = route.params;
-
   return (
     <View style={styles.background}>
       <View style={styles.mrCounter}>
