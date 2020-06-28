@@ -9,7 +9,8 @@ import { withTheme } from "react-native-elements";
 import { storeData, getData } from "./storage";
 
 import HomeScreen from "./screens/HomeScreen";
-import CounterScreen from "./screens/CountersScreen";
+import CountersScreen from "./screens/CountersScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 // import TitleScreen from "./screens/TitleScreen";
 import Header from "./components/Header";
 import colors from "./config/colors";
@@ -38,14 +39,26 @@ const theme = {
 function Main(props) {
   const [counters, setCounters] = useState([]);
   const [numSelCounters, setNumSelCounters] = useState([]);
+  const [settingsObj, setSettingsObj] = useState({});
 
   useEffect(() => {
     async function fetchData() {
       const storageState = await getData();
-      console.log(storageState.numSelCounters);
-      console.log("storageState.counters", storageState.counters);
-      setCounters(storageState.counters);
-      setNumSelCounters(storageState.numSelCounters);
+      const { numSelCounters, counters, settingsObj } = storageState;
+      console.log(numSelCounters);
+      console.log("counters", counters);
+      setCounters(counters);
+      setNumSelCounters(numSelCounters);
+      setSettingsObj(
+        Object.keys(settingsObj).length > 0
+          ? settingsObj
+          : {
+              darkMode: false,
+              keepScreenOn: false,
+              leftHanded: false,
+              fliting: false
+            }
+      );
 
       countSelectedThenSet();
     }
@@ -142,7 +155,12 @@ function Main(props) {
               />
               <Stack.Screen
                 name="Counters"
-                component={CounterScreen}
+                component={CountersScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Settings"
+                component={SettingsScreen}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>

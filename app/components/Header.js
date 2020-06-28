@@ -11,6 +11,7 @@ import {
 import { CountersContext } from "../state/CountersContext";
 import { withTheme } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const screenWidth = Math.floor(Dimensions.get("window").width);
 const eyeWidth = 32;
@@ -422,12 +423,15 @@ function HomeScreen({ navigation, theme }) {
             </View>
           </View>
           <View style={styles.contentContainerOutline(theme)}></View>
-          <View style={styles.settingsContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Counters")}
+            style={styles.settingsContainer}
+          >
             <Image
               source={require("../assets/Settings.png")}
               style={styles.settings}
             />
-          </View>
+          </TouchableOpacity>
         </View>
       </LinearGradient>
     </View>
