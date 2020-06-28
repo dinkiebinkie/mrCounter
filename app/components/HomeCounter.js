@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,13 +6,11 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Switch,
-  TextInput,
-  Keyboard
+  TextInput
 } from "react-native";
 import { withTheme } from "react-native-elements";
 import { CountersContext } from "../state/CountersContext";
 
-//rsf
 function HomeCounter({ theme, counter }) {
   const { title, count, selected, id, selectedSlant } = counter;
 
@@ -20,19 +18,7 @@ function HomeCounter({ theme, counter }) {
   const [titleValue, setTitleValue] = useState(title);
   const { toggleSelect, editCounter } = useContext(CountersContext);
 
-  // useEffect(() => {
-  //   Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
-
-  //   // cleanup function
-  //   return () => {
-  //     Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
-  //   };
-  // }, []);
-
-  // const _keyboardDidHide = () => submitTitle();
-
   const toggleEditing = () => {
-    console.log(isEditing);
     setIsEditing(prevEditing => (prevEditing ? false : true));
     if (isEditing) titleInput.focus();
   };
@@ -42,61 +28,70 @@ function HomeCounter({ theme, counter }) {
     editCounter(id, "title", titleValue);
   };
 
+  console.log(isEditing);
   return (
-    <TouchableOpacity
-      style={[
-        styles.container(theme),
-        selected && styles.containerSelected,
-        {
-          transform: [
-            {
-              rotate: selected ? selectedSlant : "0deg"
-            }
-          ]
-        }
-      ]}
-      onPress={() => toggleSelect(id)}
-    >
-      <TouchableWithoutFeedback style={styles.titles} onPress={toggleEditing}>
-        {isEditing ? (
-          <TextInput
-            autoFocus={true}
-            value={titleValue}
-            style={styles.titleText}
-            onChangeText={text => setTitleValue(text)}
-            onSubmitEditing={() => submitTitle()}
-            numberOfLines={1}
-          />
-        ) : (
-          <Text numberOfLines={2} style={styles.titleText}>
-            {title}
-          </Text>
-        )}
-      </TouchableWithoutFeedback>
-      <View
+    <>
+      <TouchableOpacity
         style={[
-          styles.rightContainer(theme),
-          selected && styles.rightContainerSelected(theme)
+          styles.container(theme),
+          selected && styles.containerSelected,
+          {
+            transform: [
+              {
+                rotate: selected ? selectedSlant : "0deg"
+              }
+            ]
+          }
         ]}
+        onPress={() => toggleSelect(id)}
       >
-        <Switch
-          trackColor={{
-            false: theme.colors.LightGrey,
-            true: theme.colors.MidBlue
-          }}
-          thumbColor={selected ? theme.colors.Blue : theme.colors.PureWhite}
-          value={selected}
-          onValueChange={() => toggleSelect(id)}
-        />
-        <Text style={styles.countText}>{count}</Text>
-      </View>
-    </TouchableOpacity>
+        <TouchableWithoutFeedback style={styles.titles} onPress={toggleEditing}>
+          {isEditing ? (
+            <TextInput
+              autoFocus={true}
+              value={titleValue}
+              style={styles.titleText}
+              onChangeText={text => setTitleValue(text)}
+              onSubmitEditing={() => submitTitle()}
+              numberOfLines={1}
+            />
+          ) : (
+            <Text numberOfLines={2} style={styles.titleText}>
+              {title}
+            </Text>
+          )}
+        </TouchableWithoutFeedback>
+        <View
+          style={[
+            styles.rightContainer(theme),
+            selected && styles.rightContainerSelected(theme)
+          ]}
+        >
+          <Switch
+            trackColor={{
+              false: theme.colors.LightGrey,
+              true: theme.colors.MidBlue
+            }}
+            thumbColor={selected ? theme.colors.Blue : theme.colors.PureWhite}
+            value={selected}
+            onValueChange={() => toggleSelect(id)}
+          />
+          <Text style={styles.countText}>{count}</Text>
+        </View>
+        {isEditing && (
+          <TouchableWithoutFeedback onPress={() => submitTitle()}>
+            <View style={styles.titleTextWrapper}></View>
+          </TouchableWithoutFeedback>
+        )}
+      </TouchableOpacity>
+    </>
   );
 }
 
 //rnss
 const styles = StyleSheet.create({
   container: theme => ({
+    position: "relative",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
@@ -121,8 +116,19 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     marginRight: "2%"
   },
-  titleText: { fontSize: 24, width: "68%" },
-  // titleTextSize:width: "68%",
+  titleText: {
+    fontSize: 24,
+    width: "68%",
+    zIndex: 1000000
+  },
+  titleTextWrapper: {
+    zIndex: 100000,
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
+  },
   rightContainer: theme => ({
     width: "30%",
     borderRadius: 4,

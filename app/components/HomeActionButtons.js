@@ -26,18 +26,21 @@ function HomeScreen({ navigation, theme }) {
     if (numSelCounters === 0) {
       Animated.timing(goWidth, {
         toValue: 100,
+        useNativeDriver: false,
         duration: 500,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
       Animated.timing(newWidth, {
         toValue: screenWidth - containerMargin * 2,
+        useNativeDriver: false,
         duration: 500,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
       Animated.timing(goOpacity, {
         toValue: 0,
+        useNativeDriver: false,
         duration: 500,
         easing: Easing.inOut(Easing.linear)
       }).start();
@@ -45,18 +48,21 @@ function HomeScreen({ navigation, theme }) {
     if (numSelCounters === 1) {
       Animated.timing(goWidth, {
         toValue: (screenWidth - containerMargin * 2) * 0.67,
+        useNativeDriver: false,
         duration: 500,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
       Animated.timing(newWidth, {
         toValue: (screenWidth - containerMargin * 2) * 0.3,
+        useNativeDriver: false,
         duration: 500,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
       Animated.timing(goOpacity, {
         toValue: 1,
+        useNativeDriver: false,
         duration: 500,
         easing: Easing.inOut(Easing.linear)
       }).start();

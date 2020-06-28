@@ -6,6 +6,7 @@ import { CountersContext } from "./state/CountersContext";
 import { guidGenerator } from "./helpers";
 import { ThemeProvider } from "react-native-elements";
 import { withTheme } from "react-native-elements";
+import { storeData, getData } from "./storage";
 
 import HomeScreen from "./screens/HomeScreen";
 import CounterScreen from "./screens/CountersScreen";
@@ -39,27 +40,41 @@ function Main(props) {
   const [numSelCounters, setNumSelCounters] = useState(0);
 
   useEffect(() => {
-    setCounters([
-      {
-        id: 0,
-        title: "Counter 1",
-        count: 10,
-        selected: false,
-        incrementAmount: 1,
-        selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
-      },
-      {
-        id: 1,
-        title: "Counter 2",
-        count: 100,
-        selected: false,
-        incrementAmount: 1,
-        selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
-      }
-    ]);
+    async function fetchData() {
+      const storageState = await getData();
+      // console.log(storageState);
 
-    countSelectedThenSet();
+      setCounters(storageState.counters);
+      setNumSelCounters(storageState.numSelCounters);
+      // setCounters([
+      //   {
+      //     id: 0,
+      //     title: "Counter 1",
+      //     count: 10,
+      //     selected: false,
+      //     incrementAmount: 1,
+      //     selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
+      //   },
+      //   {
+      //     id: 1,
+      //     title: "Counter 2",
+      //     count: 100,
+      //     selected: false,
+      //     incrementAmount: 1,
+      //     selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
+      //   }
+      // ]);
+
+      countSelectedThenSet();
+    }
+    fetchData();
   }, []);
+
+  const saveToStorage = () =>
+    storeData({
+      counters,
+      numSelCounters
+    });
 
   // ensure number of selected state is accurate
   const countSelectedThenSet = newCounters => {
@@ -74,7 +89,7 @@ function Main(props) {
   // add a new counter with a title
   const addCounter = (title, count) => {
     const newCounter = {
-      title: title ? title : `Counter ${counters.length + 1}`,
+      title: title ? title : `Counter ${counters ? counters.length + 1 : 1}`,
       count: count >= 0 ? count : 0,
       id: guidGenerator(),
       selected: false,
@@ -83,6 +98,7 @@ function Main(props) {
     };
 
     setCounters([...counters, newCounter]);
+    saveToStorage();
     return countSelectedThenSet();
   };
 
@@ -91,6 +107,7 @@ function Main(props) {
     const newCounters = [...counters];
     const indexOfCounter = newCounters.findIndex(counter => counter.id === id);
     setCounters(newCounters.splice(indexOfCounter, 1));
+    saveToStorage();
     return countSelectedThenSet();
   };
 
@@ -103,12 +120,13 @@ function Main(props) {
       return newCounter;
     });
     setCounters(newCounters);
+    saveToStorage();
+    console.log(id);
     return countSelectedThenSet(newCounters);
   };
 
   // edit counter by id
   const editCounter = (id, key, value) => {
-    console.log(id, key, value);
     const newCounters = [...counters];
     const indexOfCounter = newCounters.findIndex(counter => counter.id === id);
     const newCounter = { ...counters[indexOfCounter] };
@@ -117,6 +135,7 @@ function Main(props) {
     newCounters[indexOfCounter] = newCounter;
 
     setCounters(newCounters);
+    saveToStorage();
     return countSelectedThenSet();
   };
 
