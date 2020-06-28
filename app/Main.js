@@ -37,33 +37,14 @@ const theme = {
 //rsf
 function Main(props) {
   const [counters, setCounters] = useState([]);
-  const [numSelCounters, setNumSelCounters] = useState(0);
+  const [numSelCounters, setNumSelCounters] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const storageState = await getData();
-      // console.log(storageState);
 
       setCounters(storageState.counters);
       setNumSelCounters(storageState.numSelCounters);
-      // setCounters([
-      //   {
-      //     id: 0,
-      //     title: "Counter 1",
-      //     count: 10,
-      //     selected: false,
-      //     incrementAmount: 1,
-      //     selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
-      //   },
-      //   {
-      //     id: 1,
-      //     title: "Counter 2",
-      //     count: 100,
-      //     selected: false,
-      //     incrementAmount: 1,
-      //     selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
-      //   }
-      // ]);
 
       countSelectedThenSet();
     }
@@ -78,10 +59,10 @@ function Main(props) {
 
   // ensure number of selected state is accurate
   const countSelectedThenSet = newCounters => {
-    let numSelected = 0;
+    let numSelected = [];
     let useCounters = newCounters ? newCounters : counters;
     useCounters.forEach(counter =>
-      counter.selected === true ? numSelected++ : null
+      counter.selected === true ? numSelected.push(counter.id) : null
     );
     setNumSelCounters(numSelected);
   };

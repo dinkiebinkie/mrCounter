@@ -28,7 +28,6 @@ function HomeCounter({ theme, counter }) {
     editCounter(id, "title", titleValue);
   };
 
-  console.log(isEditing);
   return (
     <>
       <TouchableOpacity

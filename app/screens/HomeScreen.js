@@ -10,7 +10,7 @@ import { withTheme } from "react-native-elements";
 
 //rsf
 function HomeScreen({ navigation, theme }) {
-  const { counters, numSelCounters } = useContext(CountersContext);
+  const { counters } = useContext(CountersContext);
 
   return (
     <>
@@ -20,12 +20,7 @@ function HomeScreen({ navigation, theme }) {
         <View style={styles.counterContainer}>
           {counters
             ? counters.map((counter, i) => (
-                <HomeCounter
-                  key={i}
-                  counter={counter}
-                  index={i}
-                  numSelCounters={numSelCounters}
-                />
+                <HomeCounter key={i} counter={counter} index={i} />
               ))
             : null}
         </View>

@@ -31,9 +31,10 @@ function HomeScreen({ navigation, theme }) {
   const eyeRingSize6 = useRef(new Animated.Value(32)).current;
 
   const { numSelCounters } = useContext(CountersContext);
+  const numSel = numSelCounters.length;
 
   useEffect(() => {
-    if (numSelCounters === 0 && isEyeAwake !== false) {
+    if (numSel === 0 && isEyeAwake !== false) {
       setIsEyeAwake(false);
       Animated.timing(eyePos, {
         toValue: 50,
@@ -80,7 +81,7 @@ function HomeScreen({ navigation, theme }) {
         easing: Easing.inOut(Easing.linear)
       }).start();
     }
-    if (numSelCounters === 1) {
+    if (numSel === 1) {
       setIsEyeAwake(true);
 
       // Eyeball moving up
@@ -150,7 +151,7 @@ function HomeScreen({ navigation, theme }) {
       }).start();
     }
 
-    if (numSelCounters === 2) {
+    if (numSel === 2) {
       Animated.timing(eyeRingSizeOp2, {
         toValue: 1,
         useNativeDriver: false,
@@ -194,7 +195,7 @@ function HomeScreen({ navigation, theme }) {
       }).start();
     }
 
-    if (numSelCounters >= 3) {
+    if (numSel >= 3) {
       Animated.timing(eyeRingSizeOp3, {
         toValue: 1,
         useNativeDriver: false,
@@ -217,10 +218,10 @@ function HomeScreen({ navigation, theme }) {
       }).start();
     }
 
-    if (numSelCounters >= 1) {
+    if (numSel >= 1) {
       setIsEyeAwake(true);
     }
-  }, [numSelCounters]);
+  }, [numSel]);
 
   return (
     <View style={styles.container}>
@@ -244,7 +245,7 @@ function HomeScreen({ navigation, theme }) {
                 <View
                   style={[
                     styles.eyeBall(theme),
-                    numSelCounters > 0 && styles.eyeBallAwake
+                    numSel > 0 && styles.eyeBallAwake
                   ]}
                 >
                   <View style={styles.eyeBallPupil(theme)}></View>
@@ -343,7 +344,7 @@ function HomeScreen({ navigation, theme }) {
                 <View
                   style={[
                     styles.eyeBall(theme),
-                    numSelCounters > 0 && styles.eyeBallAwake
+                    numSel > 0 && styles.eyeBallAwake
                   ]}
                 >
                   <View style={styles.eyeBallPupil(theme)}></View>

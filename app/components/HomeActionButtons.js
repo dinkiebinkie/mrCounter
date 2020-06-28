@@ -17,13 +17,14 @@ const containerMargin = 4;
 
 function HomeScreen({ navigation, theme }) {
   const { numSelCounters, addCounter } = useContext(CountersContext);
+  const numSel = numSelCounters.length;
   const goWidth = useRef(new Animated.Value(100)).current;
   const newWidth = useRef(new Animated.Value(screenWidth - containerMargin * 2))
     .current;
   const goOpacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    if (numSelCounters === 0) {
+    if (numSel === 0) {
       Animated.timing(goWidth, {
         toValue: 100,
         useNativeDriver: false,
@@ -45,7 +46,7 @@ function HomeScreen({ navigation, theme }) {
         easing: Easing.inOut(Easing.linear)
       }).start();
     }
-    if (numSelCounters === 1) {
+    if (numSel === 1) {
       Animated.timing(goWidth, {
         toValue: (screenWidth - containerMargin * 2) * 0.67,
         useNativeDriver: false,
@@ -67,7 +68,7 @@ function HomeScreen({ navigation, theme }) {
         easing: Easing.inOut(Easing.linear)
       }).start();
     }
-  }, [numSelCounters]);
+  }, [numSel]);
 
   return (
     <View style={styles.buttonContainer}>
@@ -98,7 +99,7 @@ function HomeScreen({ navigation, theme }) {
           styles.goButton(theme),
           { width: goWidth, opacity: goOpacity }
         ]}
-        disabled={numSelCounters < 1 ? true : false}
+        disabled={numSel < 1 ? true : false}
       >
         <Text style={styles.buttonText}>Go Count</Text>
         <View
