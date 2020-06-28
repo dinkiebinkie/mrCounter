@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, View, Button, Text, TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, View } from "react-native";
 import HomeCounter from "../components/HomeCounter";
 import HomeActionButtons from "../components/HomeActionButtons";
 import Header from "../components/Header";
@@ -7,11 +7,12 @@ import SectionTitle from "../components/SectionTitle";
 
 import { CountersContext } from "../state/CountersContext";
 import { withTheme } from "react-native-elements";
+import { VariablesInAllowedPositionRule } from "graphql";
 
 //rsf
 function HomeScreen({ navigation, theme }) {
   const { counters } = useContext(CountersContext);
-
+  console.log("counters", counters);
   return (
     <>
       <Header />
@@ -24,7 +25,7 @@ function HomeScreen({ navigation, theme }) {
               ))
             : null}
         </View>
-        <HomeActionButtons />
+        <HomeActionButtons navigation={navigation} />
       </View>
     </>
   );

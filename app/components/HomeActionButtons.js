@@ -23,7 +23,8 @@ function HomeScreen({ navigation, theme }) {
     .current;
   const goOpacity = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {
+  const calcAnimated = firstLoad => {
+    console.log("firstLoad, numSel", firstLoad, numSel);
     if (numSel === 0) {
       Animated.timing(goWidth, {
         toValue: 100,
@@ -46,7 +47,7 @@ function HomeScreen({ navigation, theme }) {
         easing: Easing.inOut(Easing.linear)
       }).start();
     }
-    if (numSel === 1) {
+    if (numSel === 1 || (firstLoad && numSel >= 1)) {
       Animated.timing(goWidth, {
         toValue: (screenWidth - containerMargin * 2) * 0.67,
         useNativeDriver: false,
@@ -68,7 +69,10 @@ function HomeScreen({ navigation, theme }) {
         easing: Easing.inOut(Easing.linear)
       }).start();
     }
-  }, [numSel]);
+  };
+
+  useEffect(() => calcAnimated(), [numSel]);
+  useEffect(() => calcAnimated(true), []);
 
   return (
     <View style={styles.buttonContainer}>

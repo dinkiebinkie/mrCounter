@@ -42,7 +42,8 @@ function Main(props) {
   useEffect(() => {
     async function fetchData() {
       const storageState = await getData();
-
+      console.log(storageState.numSelCounters);
+      console.log("storageState.counters", storageState.counters);
       setCounters(storageState.counters);
       setNumSelCounters(storageState.numSelCounters);
 
@@ -64,7 +65,9 @@ function Main(props) {
     useCounters.forEach(counter =>
       counter.selected === true ? numSelected.push(counter.id) : null
     );
+    console.log("numSelected", numSelected);
     setNumSelCounters(numSelected);
+    saveToStorage();
   };
 
   // add a new counter with a title
@@ -79,7 +82,6 @@ function Main(props) {
     };
 
     setCounters([...counters, newCounter]);
-    saveToStorage();
     return countSelectedThenSet();
   };
 
@@ -88,7 +90,6 @@ function Main(props) {
     const newCounters = [...counters];
     const indexOfCounter = newCounters.findIndex(counter => counter.id === id);
     setCounters(newCounters.splice(indexOfCounter, 1));
-    saveToStorage();
     return countSelectedThenSet();
   };
 
@@ -101,8 +102,6 @@ function Main(props) {
       return newCounter;
     });
     setCounters(newCounters);
-    saveToStorage();
-    console.log(id);
     return countSelectedThenSet(newCounters);
   };
 
@@ -116,7 +115,6 @@ function Main(props) {
     newCounters[indexOfCounter] = newCounter;
 
     setCounters(newCounters);
-    saveToStorage();
     return countSelectedThenSet();
   };
 

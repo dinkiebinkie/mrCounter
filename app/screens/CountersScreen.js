@@ -1,35 +1,39 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, Button } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Counter from "../components/Counter";
-import colors from "../config/colors";
+import Header from "../components/Header";
 import { CountersContext } from "../state/CountersContext";
+import { withTheme } from "react-native-elements";
 
 //rsf
-function HomeScreen({ route }) {
+function CountersScreen({ route, theme }) {
   const { counters } = useContext(CountersContext);
-
+  console.log("counterscounters", counters);
   return (
-    <View style={styles.container}>
-      <View style={styles.counterContainer}>
-        {counters
-          ? counters.map((counter, i) =>
-              counter.selected ? (
-                <Counter key={i} counter={counter} index={i} />
-              ) : null
-            )
-          : null}
+    <>
+      <Header />
+      <View style={styles.container(theme)}>
+        <View style={styles.counterContainer}>
+          {counters
+            ? counters.map((counter, i) =>
+                counter.selected ? (
+                  <Counter key={i} counter={counter} index={i} />
+                ) : null
+              )
+            : null}
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
 //rnss
 const styles = StyleSheet.create({
-  container: {
+  container: theme => ({
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: theme.colors.PureWhite,
     flexDirection: "column"
-  },
+  }),
   counterContainer: {
     flexDirection: "column"
   },
@@ -39,4 +43,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HomeScreen;
+export default withTheme(CountersScreen);
