@@ -226,213 +226,213 @@ function HomeScreen({ navigation, theme }) {
 
   return (
     <View style={styles.container}>
-      <LinearGradient
+      {/* <LinearGradient
         colors={["#AAA191", "rgba(170, 161, 145, 0)"]}
         style={styles.gradient}
-      >
-        <View style={styles.contentContainer}>
-          <View style={styles.eyeContainer}>
-            {/* Hide these components when outside of eye */}
-            <View style={styles.eyeContainerHidden}>
-              {/* eyeball and pupil */}
-              <Animated.View
+      > */}
+      <View style={styles.contentContainer}>
+        <View style={styles.eyeContainer}>
+          {/* Hide these components when outside of eye */}
+          <View style={styles.eyeContainerHidden}>
+            {/* eyeball and pupil */}
+            <Animated.View
+              style={[
+                styles.eyeBallCenter,
+                {
+                  top: eyePos
+                }
+              ]}
+            >
+              <View
                 style={[
-                  styles.eyeBallCenter,
-                  {
-                    top: eyePos
-                  }
+                  styles.eyeBall(theme),
+                  numSel > 0 && styles.eyeBallAwake
                 ]}
               >
-                <View
-                  style={[
-                    styles.eyeBall(theme),
-                    numSel > 0 && styles.eyeBallAwake
-                  ]}
-                >
-                  <View style={styles.eyeBallPupil(theme)}></View>
-                </View>
-              </Animated.View>
-              {/* bottom half of eyelid */}
-              <View style={[styles.eyeLid(theme), styles.eyeLidBottom]}></View>
-              {/* Whites of Eye */}
-              <Animated.View
-                style={[styles.eyeBg, { top: eyeBgHeight }]}
-              ></Animated.View>
-            </View>
-            {/* Eye Rings - Outside of Hidden container */}
-            <View style={styles.eyeRingCenter}>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize1,
-                    height: eyeRingSize1,
-                    opacity: eyeRingSizeOp1
-                  }
-                ]}
-              ></Animated.View>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize2,
-                    height: eyeRingSize2,
-                    opacity: eyeRingSizeOp1
-                  }
-                ]}
-              ></Animated.View>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize3,
-                    height: eyeRingSize3,
-                    opacity: eyeRingSizeOp2
-                  }
-                ]}
-              ></Animated.View>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize4,
-                    height: eyeRingSize4,
-                    opacity: eyeRingSizeOp2
-                  }
-                ]}
-              ></Animated.View>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize5,
-                    height: eyeRingSize5,
-                    opacity: eyeRingSizeOp3
-                  }
-                ]}
-              ></Animated.View>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize6,
-                    height: eyeRingSize6,
-                    opacity: eyeRingSizeOp3
-                  }
-                ]}
-              ></Animated.View>
-            </View>
+                <View style={styles.eyeBallPupil(theme)}></View>
+              </View>
+            </Animated.View>
+            {/* bottom half of eyelid */}
+            <View style={[styles.eyeLid(theme), styles.eyeLidBottom]}></View>
+            {/* Whites of Eye */}
+            <Animated.View
+              style={[styles.eyeBg, { top: eyeBgHeight }]}
+            ></Animated.View>
           </View>
-
-          <TouchableWithoutFeedback style={styles.mrCounterContainer}>
-            <Image
-              source={require("../assets/MrCounter1.png")}
-              style={styles.mrCounter}
-            />
-          </TouchableWithoutFeedback>
-          <View style={styles.eyeContainer}>
-            {/* Hide these components when outside of eye */}
-            <View style={styles.eyeContainerHidden}>
-              {/* eyeball and pupil */}
-              <Animated.View
-                style={[
-                  styles.eyeBallCenter,
-                  {
-                    top: eyePos
-                  }
-                ]}
-              >
-                <View
-                  style={[
-                    styles.eyeBall(theme),
-                    numSel > 0 && styles.eyeBallAwake
-                  ]}
-                >
-                  <View style={styles.eyeBallPupil(theme)}></View>
-                </View>
-              </Animated.View>
-              {/* bottom half of eyelid */}
-              <View style={[styles.eyeLid(theme), styles.eyeLidBottom]}></View>
-              {/* Whites of Eye */}
-              <Animated.View
-                style={[styles.eyeBg, { top: eyeBgHeight }]}
-              ></Animated.View>
-            </View>
-            {/* Eye Rings - Outside of Hidden container */}
-            <View style={styles.eyeRingCenter}>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize1,
-                    height: eyeRingSize1,
-                    opacity: eyeRingSizeOp1
-                  }
-                ]}
-              ></Animated.View>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize2,
-                    height: eyeRingSize2,
-                    opacity: eyeRingSizeOp1
-                  }
-                ]}
-              ></Animated.View>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize3,
-                    height: eyeRingSize3,
-                    opacity: eyeRingSizeOp2
-                  }
-                ]}
-              ></Animated.View>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize4,
-                    height: eyeRingSize4,
-                    opacity: eyeRingSizeOp2
-                  }
-                ]}
-              ></Animated.View>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize5,
-                    height: eyeRingSize5,
-                    opacity: eyeRingSizeOp3
-                  }
-                ]}
-              ></Animated.View>
-              <Animated.View
-                style={[
-                  styles.eyeAwakeRing(theme),
-                  {
-                    width: eyeRingSize6,
-                    height: eyeRingSize6,
-                    opacity: eyeRingSizeOp3
-                  }
-                ]}
-              ></Animated.View>
-            </View>
-          </View>
-          <View style={styles.contentContainerOutline(theme)}></View>
-          <View style={styles.settingsContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-              <Image
-                source={require("../assets/Settings.png")}
-                style={styles.settings}
-              />
-            </TouchableOpacity>
+          {/* Eye Rings - Outside of Hidden container */}
+          <View style={styles.eyeRingCenter}>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize1,
+                  height: eyeRingSize1,
+                  opacity: eyeRingSizeOp1
+                }
+              ]}
+            ></Animated.View>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize2,
+                  height: eyeRingSize2,
+                  opacity: eyeRingSizeOp1
+                }
+              ]}
+            ></Animated.View>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize3,
+                  height: eyeRingSize3,
+                  opacity: eyeRingSizeOp2
+                }
+              ]}
+            ></Animated.View>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize4,
+                  height: eyeRingSize4,
+                  opacity: eyeRingSizeOp2
+                }
+              ]}
+            ></Animated.View>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize5,
+                  height: eyeRingSize5,
+                  opacity: eyeRingSizeOp3
+                }
+              ]}
+            ></Animated.View>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize6,
+                  height: eyeRingSize6,
+                  opacity: eyeRingSizeOp3
+                }
+              ]}
+            ></Animated.View>
           </View>
         </View>
-      </LinearGradient>
+
+        <TouchableWithoutFeedback style={styles.mrCounterContainer}>
+          <Image
+            source={require("../assets/MrCounter1.png")}
+            style={styles.mrCounter}
+          />
+        </TouchableWithoutFeedback>
+        <View style={styles.eyeContainer}>
+          {/* Hide these components when outside of eye */}
+          <View style={styles.eyeContainerHidden}>
+            {/* eyeball and pupil */}
+            <Animated.View
+              style={[
+                styles.eyeBallCenter,
+                {
+                  top: eyePos
+                }
+              ]}
+            >
+              <View
+                style={[
+                  styles.eyeBall(theme),
+                  numSel > 0 && styles.eyeBallAwake
+                ]}
+              >
+                <View style={styles.eyeBallPupil(theme)}></View>
+              </View>
+            </Animated.View>
+            {/* bottom half of eyelid */}
+            <View style={[styles.eyeLid(theme), styles.eyeLidBottom]}></View>
+            {/* Whites of Eye */}
+            <Animated.View
+              style={[styles.eyeBg, { top: eyeBgHeight }]}
+            ></Animated.View>
+          </View>
+          {/* Eye Rings - Outside of Hidden container */}
+          <View style={styles.eyeRingCenter}>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize1,
+                  height: eyeRingSize1,
+                  opacity: eyeRingSizeOp1
+                }
+              ]}
+            ></Animated.View>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize2,
+                  height: eyeRingSize2,
+                  opacity: eyeRingSizeOp1
+                }
+              ]}
+            ></Animated.View>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize3,
+                  height: eyeRingSize3,
+                  opacity: eyeRingSizeOp2
+                }
+              ]}
+            ></Animated.View>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize4,
+                  height: eyeRingSize4,
+                  opacity: eyeRingSizeOp2
+                }
+              ]}
+            ></Animated.View>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize5,
+                  height: eyeRingSize5,
+                  opacity: eyeRingSizeOp3
+                }
+              ]}
+            ></Animated.View>
+            <Animated.View
+              style={[
+                styles.eyeAwakeRing(theme),
+                {
+                  width: eyeRingSize6,
+                  height: eyeRingSize6,
+                  opacity: eyeRingSizeOp3
+                }
+              ]}
+            ></Animated.View>
+          </View>
+        </View>
+        <View style={styles.contentContainerOutline(theme)}></View>
+        <View style={styles.settingsContainer}>
+          <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+            <Image
+              source={require("../assets/Settings.png")}
+              style={styles.settings}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+      {/* </LinearGradient> */}
     </View>
   );
 }
@@ -441,7 +441,8 @@ function HomeScreen({ navigation, theme }) {
 const styles = StyleSheet.create({
   container: {
     position: "relative",
-    flexDirection: "column"
+    flexDirection: "column",
+    backgroundColor: "rgba(43,44,46,0)"
   },
   contentContainer: {
     position: "relative",
@@ -450,8 +451,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-end",
     margin: 10,
+    paddingTop: 40,
     paddingBottom: 15
-    // overflow: "hidden"
   },
   contentContainerOutline: theme => ({
     position: "absolute",

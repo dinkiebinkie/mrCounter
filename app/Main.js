@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, SafeAreaView, StatusBar } from "react-native";
+import { StyleSheet, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator, useHeaderHeight } from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { CountersContext } from "./state/CountersContext";
 import { guidGenerator } from "./helpers";
 import { ThemeProvider } from "react-native-elements";
@@ -11,9 +11,6 @@ import { storeData, getData } from "./storage";
 import HomeScreen from "./screens/HomeScreen";
 import CountersScreen from "./screens/CountersScreen";
 import SettingsScreen from "./screens/SettingsScreen";
-// import TitleScreen from "./screens/TitleScreen";
-import Header from "./components/Header";
-import colors from "./config/colors";
 
 const Stack = createStackNavigator();
 
@@ -21,15 +18,21 @@ const theme = {
   colors: {
     primary: "#EAE6E1",
     Beige1: "#EAE6E1",
-    LightGrey: "#F2F3F3",
 
     Grey1: "#4D4D4D",
     Grey2: "#69696C",
     Grey3: "#979797",
-    Black: "#2E2B2B",
+    Grey4: "#DCDCDB",
+    LightGrey: "#F2F3F3",
+    Black: "#2B2C2E",
+    Darkest: "#211E1E",
     PureWhite: "#FFFFFF",
+
     DeepBeige: "#897A5E",
     DarkBeige: "#AAA191",
+
+    Green: "#3AC34F",
+
     Blue: "#1681FF",
     MidBlue: "#88BFFF",
     LightBlue: "#E8F2FF"
@@ -84,14 +87,13 @@ function Main(props) {
               }
             ]
       );
-
-      countSelectedThenSet();
     }
     fetchData();
+    // countSelectedThenSet();
   }, []);
 
-  const saveToStorage = () =>
-    storeData({
+  const saveToStorage = async () =>
+    await storeData({
       counters,
       numSelCounters,
       settings
@@ -178,7 +180,7 @@ function Main(props) {
         }}
       >
         <NavigationContainer>
-          <SafeAreaView style={styles.container}>
+          <SafeAreaView style={styles.container(theme)}>
             <Stack.Navigator>
               <Stack.Screen
                 name="Home"
@@ -204,10 +206,13 @@ function Main(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: theme => ({
     flex: 1,
-    backgroundColor: theme.colors.primary
-  }
+    width: "100%",
+    height: "100%",
+    backgroundColor: "red"
+    // backgroundColor: theme.colors.Black
+  })
 });
 
 export default withTheme(Main);
