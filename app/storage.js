@@ -5,7 +5,9 @@ export const storeData = async appState => {
     const jsonAppState = JSON.stringify(appState);
     // console.log("appState", appState);
 
-    await AsyncStorage.setItem(STORAGE_KEY, jsonAppState);
+    await AsyncStorage.setItem(STORAGE_KEY, jsonAppState).catch(err =>
+      console.log(err)
+    );
   } catch (e) {
     console.log("DANGIT! There was an error saving: ", e);
     // saving error
@@ -14,9 +16,11 @@ export const storeData = async appState => {
 
 export const getData = async () => {
   try {
-    const jsonValue = await AsyncStorage.getItem(STORAGE_KEY);
+    const jsonValue = await AsyncStorage.getItem(STORAGE_KEY).catch(err =>
+      console.log(err)
+    );
     console.log("getData jsonValue");
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
+    return jsonValue != null ? JSON.parse(jsonValue) : {};
   } catch (e) {
     console.log("DANGIT! There was an error getting data: ", e);
 

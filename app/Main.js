@@ -24,6 +24,7 @@ const theme = {
     LightGrey: "#F2F3F3",
 
     Grey1: "#4D4D4D",
+    Grey2: "#69696C",
     Grey3: "#979797",
     Black: "#2E2B2B",
     PureWhite: "#FFFFFF",
@@ -43,7 +44,9 @@ function Main(props) {
 
   useEffect(() => {
     async function fetchData() {
-      const storageState = await getData();
+      const storageState = await getData().catch(err =>
+        console.log("error fetching local storage")
+      );
       const { numSelCounters, counters, settings } = storageState;
 
       setCounters(counters);
@@ -56,25 +59,30 @@ function Main(props) {
                 id: "darkMode",
                 title: "Dark Mode",
                 selected: false,
-                description: "Makes the UI dark."
+                description: "Makes the UI dark.",
+
+                selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
               },
               {
                 id: "keepScreenOn",
                 title: "Keep Screen On",
                 selected: false,
-                description: "For dabbling counters."
+                description: "For dabbling counters.",
+                selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
               },
               {
                 id: "leftHanded",
                 title: "Left Handed",
                 selected: false,
-                description: "Moves buttons to the left."
+                description: "Moves buttons to the left.",
+                selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
               },
               {
                 id: "flirting",
                 title: "Flirting",
                 selected: false,
-                description: "Don't you dare turn me on."
+                description: "Don't you dare turn me on.",
+                selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
               }
             ]
       );
@@ -87,7 +95,8 @@ function Main(props) {
   const saveToStorage = () =>
     storeData({
       counters,
-      numSelCounters
+      numSelCounters,
+      settings
     });
 
   // ensure number of selected state is accurate
@@ -126,7 +135,6 @@ function Main(props) {
 
   // find counter or setting by id then toggle selected state
   const toggleSelect = (id, isCounter) => {
-    console.log(id, isCounter);
     const arrToMap = isCounter ? counters : settings;
     const newArr = arrToMap.map((obj, i) => {
       if (obj.id !== id) return obj;

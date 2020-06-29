@@ -15,7 +15,7 @@ function HomeCounter({ theme, counter, setting, navigation }) {
   // let title, count, selected, id, selectedSlant, description;
   // if (counter) let { title, count, selected, id, selectedSlant } = counter;
   // if
-  const { title, count, selected, id, selectedSlant } = counter
+  const { title, count, selected, id, selectedSlant, description } = counter
     ? counter
     : setting;
   console.log("navigation", navigation);
@@ -51,28 +51,64 @@ function HomeCounter({ theme, counter, setting, navigation }) {
         ]}
         onPress={() => toggleSelect(id, counter ? true : false)}
       >
-        <TouchableWithoutFeedback style={styles.titles} onPress={toggleEditing}>
-          {isEditing ? (
-            <TextInput
-              autoFocus={true}
-              value={titleValue}
-              style={styles.titleText}
-              onChangeText={text => setTitleValue(text)}
-              onSubmitEditing={() => submitTitle()}
-              numberOfLines={1}
-            />
-          ) : (
-            <Text numberOfLines={2} style={styles.titleText}>
+        {counter ? (
+          <TouchableWithoutFeedback
+            style={styles.titles}
+            onPress={toggleEditing}
+          >
+            {isEditing ? (
+              <TextInput
+                autoFocus={true}
+                value={titleValue}
+                style={styles.titleText}
+                onChangeText={text => setTitleValue(text)}
+                onSubmitEditing={() => submitTitle()}
+                numberOfLines={1}
+              />
+            ) : (
+              <Text numberOfLines={2} style={styles.titleText}>
+                {title}
+              </Text>
+            )}
+          </TouchableWithoutFeedback>
+        ) : (
+          <View style={styles.titles}>
+            <Text numberOfLines={1} style={styles.titleText}>
               {title}
             </Text>
-          )}
-        </TouchableWithoutFeedback>
-        <View
-          style={[
-            styles.rightContainer(theme),
-            selected && styles.rightContainerSelected(theme)
-          ]}
-        >
+            <Text numberOfLines={1} style={styles.descText}>
+              {description}
+            </Text>
+          </View>
+        )}
+        {counter ? (
+          <>
+            <View
+              style={[
+                styles.rightContainer(theme),
+                selected && styles.rightContainerSelected(theme)
+              ]}
+            >
+              <Switch
+                trackColor={{
+                  false: theme.colors.LightGrey,
+                  true: theme.colors.MidBlue
+                }}
+                thumbColor={
+                  selected ? theme.colors.Blue : theme.colors.PureWhite
+                }
+                value={selected}
+                onValueChange={() => toggleSelect(id, counter ? true : false)}
+              />
+              <Text style={styles.countText}>{count}</Text>
+            </View>
+            {isEditing && (
+              <TouchableWithoutFeedback onPress={() => submitTitle()}>
+                <View style={styles.titleTextWrapper}></View>
+              </TouchableWithoutFeedback>
+            )}
+          </>
+        ) : (
           <Switch
             trackColor={{
               false: theme.colors.LightGrey,
@@ -80,14 +116,8 @@ function HomeCounter({ theme, counter, setting, navigation }) {
             }}
             thumbColor={selected ? theme.colors.Blue : theme.colors.PureWhite}
             value={selected}
-            onValueChange={() => toggleSelect(id)}
+            onValueChange={() => toggleSelect(id, counter ? true : false)}
           />
-          <Text style={styles.countText}>{count}</Text>
-        </View>
-        {isEditing && (
-          <TouchableWithoutFeedback onPress={() => submitTitle()}>
-            <View style={styles.titleTextWrapper}></View>
-          </TouchableWithoutFeedback>
         )}
       </TouchableOpacity>
     </>
@@ -117,9 +147,10 @@ const styles = StyleSheet.create({
     borderRadius: 8
   },
   countText: { fontSize: 24 },
+  descText: theme => ({ fontSize: 18 }),
   titles: {
     flexDirection: "column",
-    backgroundColor: "red",
+    justifyContent: "space-between",
     marginRight: "2%"
   },
   titleText: {
