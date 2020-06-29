@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
-import HomeCounter from "../components/HomeCounter";
+import Card from "../components/Card";
 import HomeActionButtons from "../components/HomeActionButtons";
 import Header from "../components/Header";
 import SectionTitle from "../components/SectionTitle";
@@ -12,7 +12,6 @@ import { VariablesInAllowedPositionRule } from "graphql";
 //rsf
 function HomeScreen({ navigation, theme }) {
   const { counters } = useContext(CountersContext);
-  console.log("counters", counters);
   return (
     <>
       <Header />
@@ -21,7 +20,7 @@ function HomeScreen({ navigation, theme }) {
         <View style={styles.counterContainer}>
           {counters
             ? counters.map((counter, i) => (
-                <HomeCounter key={i} counter={counter} index={i} />
+                <Card key={i} counter={counter} index={i} />
               ))
             : null}
         </View>

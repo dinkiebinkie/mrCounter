@@ -39,25 +39,44 @@ const theme = {
 function Main(props) {
   const [counters, setCounters] = useState([]);
   const [numSelCounters, setNumSelCounters] = useState([]);
-  const [settingsObj, setSettingsObj] = useState({});
+  const [settings, setSettings] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const storageState = await getData();
-      const { numSelCounters, counters, settingsObj } = storageState;
-      console.log(numSelCounters);
-      console.log("counters", counters);
+      const { numSelCounters, counters, settings } = storageState;
+
       setCounters(counters);
       setNumSelCounters(numSelCounters);
-      setSettingsObj(
-        Object.keys(settingsObj).length > 0
-          ? settingsObj
-          : {
-              darkMode: false,
-              keepScreenOn: false,
-              leftHanded: false,
-              fliting: false
-            }
+      setSettings(
+        Object.keys(settings).length > 0
+          ? settings
+          : [
+              {
+                id: "darkMode",
+                title: "Dark Mode",
+                selected: false,
+                description: "Makes the UI dark."
+              },
+              {
+                id: "keepScreenOn",
+                title: "Keep Screen On",
+                selected: false,
+                description: "For dabbling counters."
+              },
+              {
+                id: "leftHanded",
+                title: "Left Handed",
+                selected: false,
+                description: "Moves buttons to the left."
+              },
+              {
+                id: "flirting",
+                title: "Flirting",
+                selected: false,
+                description: "Don't you dare turn me on."
+              }
+            ]
       );
 
       countSelectedThenSet();
@@ -78,7 +97,6 @@ function Main(props) {
     useCounters.forEach(counter =>
       counter.selected === true ? numSelected.push(counter.id) : null
     );
-    console.log("numSelected", numSelected);
     setNumSelCounters(numSelected);
     saveToStorage();
   };
@@ -106,16 +124,22 @@ function Main(props) {
     return countSelectedThenSet();
   };
 
-  // find counter by id then toggle selected state
-  const toggleSelect = id => {
-    const newCounters = counters.map((counter, i) => {
-      if (counter.id !== id) return counter;
-      const newCounter = { ...counter };
-      newCounter.selected = !counter.selected;
-      return newCounter;
+  // find counter or setting by id then toggle selected state
+  const toggleSelect = (id, isCounter) => {
+    console.log(id, isCounter);
+    const arrToMap = isCounter ? counters : settings;
+    const newArr = arrToMap.map((obj, i) => {
+      if (obj.id !== id) return obj;
+      const newObj = { ...obj };
+      newObj.selected = !obj.selected;
+      return newObj;
     });
-    setCounters(newCounters);
-    return countSelectedThenSet(newCounters);
+    if (isCounter) {
+      setCounters(newArr);
+      countSelectedThenSet(newArr);
+    } else {
+      setSettings(newArr);
+    }
   };
 
   // edit counter by id
@@ -142,7 +166,9 @@ function Main(props) {
           addCounter,
           removeCounter,
           toggleSelect,
-          editCounter
+          editCounter,
+          settings,
+          setSettings
         }}
       >
         <NavigationContainer>

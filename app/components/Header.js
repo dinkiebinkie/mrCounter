@@ -424,7 +424,7 @@ function HomeScreen({ navigation, theme }) {
           </View>
           <View style={styles.contentContainerOutline(theme)}></View>
           <TouchableOpacity
-            onPress={() => navigation.navigate("Counters")}
+            onPress={() => navigation.navigate("Settings")}
             style={styles.settingsContainer}
           >
             <Image
@@ -571,7 +571,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     maxWidth: screenWidth * 0.064,
     paddingBottom: 15,
-    paddingRight: 15
+    paddingRight: 15,
+    backgroundColor: "red"
   },
   settings: {
     width: screenWidth * 0.064,

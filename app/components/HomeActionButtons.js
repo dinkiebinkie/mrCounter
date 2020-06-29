@@ -24,7 +24,6 @@ function HomeScreen({ navigation, theme }) {
   const goOpacity = useRef(new Animated.Value(0)).current;
 
   const calcAnimated = firstLoad => {
-    console.log("firstLoad, numSel", firstLoad, numSel);
     if (numSel === 0) {
       Animated.timing(goWidth, {
         toValue: 100,
