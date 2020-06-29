@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import Card from "../components/Card";
+import SectionTitle from "../components/SectionTitle";
 import Header from "../components/Header";
 import { CountersContext } from "../state/CountersContext";
 import { withTheme } from "react-native-elements";
@@ -12,6 +13,7 @@ function SettingsScreen({ route, theme }) {
     <>
       <Header />
       <View style={styles.container(theme)}>
+        <SectionTitle sectionTitle={"Settings"} />
         <View style={styles.counterContainer}>
           {settings
             ? settings.map((setting, i) =>

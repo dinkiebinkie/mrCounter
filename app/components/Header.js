@@ -423,15 +423,14 @@ function HomeScreen({ navigation, theme }) {
             </View>
           </View>
           <View style={styles.contentContainerOutline(theme)}></View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Settings")}
-            style={styles.settingsContainer}
-          >
-            <Image
-              source={require("../assets/Settings.png")}
-              style={styles.settings}
-            />
-          </TouchableOpacity>
+          <View style={styles.settingsContainer}>
+            <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+              <Image
+                source={require("../assets/Settings.png")}
+                style={styles.settings}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
       </LinearGradient>
     </View>
@@ -445,6 +444,7 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
   contentContainer: {
+    position: "relative",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -570,9 +570,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     maxWidth: screenWidth * 0.064,
-    paddingBottom: 15,
-    paddingRight: 15,
-    backgroundColor: "red"
+    paddingBottom: 10,
+    paddingRight: 15
+    // backgroundColor: "red"
+    // zIndex: 18903289382
   },
   settings: {
     width: screenWidth * 0.064,
