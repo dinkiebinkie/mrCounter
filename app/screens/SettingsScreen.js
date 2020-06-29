@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   container: theme => ({
     flex: 1,
     backgroundColor: theme.colors.PureWhite,
+    padding: 8,
     paddingTop: 12,
     flexDirection: "column"
   }),

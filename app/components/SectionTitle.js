@@ -6,7 +6,7 @@ import { withTheme } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
 
 function SectionTitle({ sectionTitle, theme }) {
-  const { counters } = useContext(CountersContext);
+  const { counters, settings } = useContext(CountersContext);
 
   return (
     <View style={styles.container(theme)}>
@@ -15,7 +15,9 @@ function SectionTitle({ sectionTitle, theme }) {
         colors={["#AAA191", "transparent"]}
         style={styles.gradient}
       ></LinearGradient>
-      <Text style={styles.count(theme)}>{counters.length}</Text>
+      <Text style={styles.count(theme)}>
+        {sectionTitle === "Settings" ? settings.length : counters.length}
+      </Text>
     </View>
   );
 }
