@@ -7,19 +7,18 @@ import { CountersContext } from "../state/CountersContext";
 import { withTheme } from "react-native-elements";
 
 //rsf
-function SettingsScreen({ route, theme }) {
+function SettingsScreen({ route, theme, navigation }) {
   const { settings } = useContext(CountersContext);
+  console.log("settings", settings);
   return (
     <>
-      <Header />
+      <Header navigation={navigation} />
       <View style={styles.container(theme)}>
         <SectionTitle sectionTitle={"Settings"} />
         <View style={styles.counterContainer}>
           {settings
             ? settings.map((setting, i) =>
-                setting.selected ? (
-                  <Card key={i} setting={setting} index={i} />
-                ) : null
+                setting ? <Card key={i} setting={setting} index={i} /> : null
               )
             : null}
         </View>
@@ -33,6 +32,7 @@ const styles = StyleSheet.create({
   container: theme => ({
     flex: 1,
     backgroundColor: theme.colors.PureWhite,
+    paddingTop: 12,
     flexDirection: "column"
   }),
   counterContainer: {

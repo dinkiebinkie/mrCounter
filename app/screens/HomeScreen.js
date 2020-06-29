@@ -14,7 +14,7 @@ function HomeScreen({ navigation, theme }) {
   const { counters } = useContext(CountersContext);
   return (
     <>
-      <Header />
+      <Header navigation={navigation} />
       <View style={styles.container(theme)}>
         <SectionTitle sectionTitle={"Most recent"} />
         <View style={styles.counterContainer}>

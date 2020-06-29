@@ -18,7 +18,7 @@ function HomeCounter({ theme, counter, setting, navigation }) {
   const { title, count, selected, id, selectedSlant, description } = counter
     ? counter
     : setting;
-  console.log("navigation", navigation);
+
   const [isEditing, setIsEditing] = useState(false);
   const [titleValue, setTitleValue] = useState(title);
   const { toggleSelect, toggleSelectSetting, editCounter } = useContext(
@@ -53,7 +53,7 @@ function HomeCounter({ theme, counter, setting, navigation }) {
       >
         {counter ? (
           <TouchableWithoutFeedback
-            style={styles.titles}
+            style={([styles.titles], { width: "68%" })}
             onPress={toggleEditing}
           >
             {isEditing ? (
@@ -72,7 +72,7 @@ function HomeCounter({ theme, counter, setting, navigation }) {
             )}
           </TouchableWithoutFeedback>
         ) : (
-          <View style={styles.titles}>
+          <View style={([styles.titles], { width: "85%" })}>
             <Text numberOfLines={1} style={styles.titleText}>
               {title}
             </Text>
@@ -109,15 +109,17 @@ function HomeCounter({ theme, counter, setting, navigation }) {
             )}
           </>
         ) : (
-          <Switch
-            trackColor={{
-              false: theme.colors.LightGrey,
-              true: theme.colors.MidBlue
-            }}
-            thumbColor={selected ? theme.colors.Blue : theme.colors.PureWhite}
-            value={selected}
-            onValueChange={() => toggleSelect(id, counter ? true : false)}
-          />
+          <View style={[styles.rightContainerSettings]}>
+            <Switch
+              trackColor={{
+                false: theme.colors.LightGrey,
+                true: theme.colors.MidBlue
+              }}
+              thumbColor={selected ? theme.colors.Blue : theme.colors.PureWhite}
+              value={selected}
+              onValueChange={() => toggleSelect(id, counter ? true : false)}
+            />
+          </View>
         )}
       </TouchableOpacity>
     </>
@@ -133,7 +135,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     backgroundColor: theme.colors.PureWhite,
     marginBottom: 4,
-    padding: 8
+    padding: 12
   }),
   containerSelected: {
     shadowColor: "#000000",
@@ -155,7 +157,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 24,
-    width: "68%",
     zIndex: 1000000
   },
   titleTextWrapper: {
@@ -176,6 +177,9 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     color: theme.colors.Black
   }),
+  rightContainerSettings: {
+    alignItems: "flex-start"
+  },
   rightContainerSelected: theme => ({
     backgroundColor: theme.colors.LightBlue
   })

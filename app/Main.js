@@ -44,9 +44,7 @@ function Main(props) {
 
   useEffect(() => {
     async function fetchData() {
-      const storageState = await getData().catch(err =>
-        console.log("error fetching local storage")
-      );
+      const storageState = await getData().catch(err => console.log(err));
       const { numSelCounters, counters, settings } = storageState;
 
       setCounters(counters);
