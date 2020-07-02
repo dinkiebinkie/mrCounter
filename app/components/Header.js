@@ -17,7 +17,11 @@ const screenWidth = Math.floor(Dimensions.get("window").width);
 const eyeWidth = 32;
 
 function HomeScreen({ navigation, theme }) {
-  const [isEyeAwake, setIsEyeAwake] = useState(false);
+  const { numSelCounters } = useContext(CountersContext);
+  console.log("numSelCounters", numSelCounters);
+  const numSel = numSelCounters.length;
+
+  const [isEyeAwake, setIsEyeAwake] = useState(numSel > 0 ? true : false);
   const eyePos = useRef(new Animated.Value(50)).current;
   const eyeLidPos = useRef(new Animated.Value(1)).current;
   const eyeBgHeight = useRef(new Animated.Value(eyeWidth)).current;
@@ -31,11 +35,9 @@ function HomeScreen({ navigation, theme }) {
   const eyeRingSize5 = useRef(new Animated.Value(32)).current;
   const eyeRingSize6 = useRef(new Animated.Value(32)).current;
 
-  const { numSelCounters } = useContext(CountersContext);
-  const numSel = numSelCounters.length;
-
   useEffect(() => {
-    if (numSel === 0 && isEyeAwake !== false) {
+    console.log(numSel, isEyeAwake);
+    if (numSel === 0) {
       setIsEyeAwake(false);
       Animated.timing(eyePos, {
         toValue: 50,
@@ -63,7 +65,21 @@ function HomeScreen({ navigation, theme }) {
       Animated.timing(eyeRingSizeOp1, {
         toValue: 0,
         useNativeDriver: false,
-        duration: 200,
+        duration: 100,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSizeOp2, {
+        toValue: 0,
+        useNativeDriver: false,
+        duration: 100,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSizeOp3, {
+        toValue: 0,
+        useNativeDriver: false,
+        duration: 400,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
@@ -81,8 +97,35 @@ function HomeScreen({ navigation, theme }) {
         duration: 200,
         easing: Easing.inOut(Easing.linear)
       }).start();
+      Animated.timing(eyeRingSize3, {
+        toValue: 32,
+        useNativeDriver: false,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize4, {
+        toValue: 32,
+        useNativeDriver: false,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize5, {
+        toValue: 32,
+        useNativeDriver: false,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize6, {
+        toValue: 32,
+        useNativeDriver: false,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
     }
-    if (numSel === 1) {
+    if (numSel >= 1) {
       setIsEyeAwake(true);
 
       // Eyeball moving up
@@ -119,6 +162,13 @@ function HomeScreen({ navigation, theme }) {
       Animated.timing(eyeRingSizeOp2, {
         toValue: 0,
         useNativeDriver: false,
+        duration: 100,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSizeOp3, {
+        toValue: 0,
+        useNativeDriver: false,
         duration: 400,
         easing: Easing.inOut(Easing.linear)
       }).start();
@@ -150,9 +200,30 @@ function HomeScreen({ navigation, theme }) {
         duration: 200,
         easing: Easing.inOut(Easing.linear)
       }).start();
+
+      Animated.timing(eyeRingSize5, {
+        toValue: 32,
+        useNativeDriver: false,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize6, {
+        toValue: 32,
+        useNativeDriver: false,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
     }
 
-    if (numSel === 2) {
+    if (numSel >= 2) {
+      Animated.timing(eyeRingSizeOp1, {
+        toValue: 1,
+        useNativeDriver: false,
+        duration: 100,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
       Animated.timing(eyeRingSizeOp2, {
         toValue: 1,
         useNativeDriver: false,
@@ -164,6 +235,20 @@ function HomeScreen({ navigation, theme }) {
         toValue: 0,
         useNativeDriver: false,
         duration: 400,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize1, {
+        toValue: 32,
+        useNativeDriver: false,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize2, {
+        toValue: 36,
+        useNativeDriver: false,
+        duration: 200,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
@@ -197,10 +282,50 @@ function HomeScreen({ navigation, theme }) {
     }
 
     if (numSel >= 3) {
+      Animated.timing(eyeRingSizeOp1, {
+        toValue: 1,
+        useNativeDriver: false,
+        duration: 100,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+      Animated.timing(eyeRingSizeOp2, {
+        toValue: 1,
+        useNativeDriver: false,
+        duration: 100,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
       Animated.timing(eyeRingSizeOp3, {
         toValue: 1,
         useNativeDriver: false,
         duration: 100,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize1, {
+        toValue: 32,
+        useNativeDriver: false,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize2, {
+        toValue: 36,
+        useNativeDriver: false,
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize3, {
+        toValue: 40,
+        useNativeDriver: false,
+        duration: 600,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeRingSize4, {
+        toValue: 44,
+        useNativeDriver: false,
+        duration: 600,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
@@ -221,6 +346,8 @@ function HomeScreen({ navigation, theme }) {
 
     if (numSel >= 1) {
       setIsEyeAwake(true);
+    } else {
+      setIsEyeAwake(false);
     }
   }, [numSel]);
 

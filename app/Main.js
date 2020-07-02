@@ -126,10 +126,9 @@ function Main(props) {
       );
     }
     fetchData();
-    // countSelectedThenSet();
   }, []);
 
-  // useEffect(() => saveToStorage(), [counters, numSelCounters, settings]);
+  useEffect(() => countSelectedThenSet(), [counters]);
 
   const saveToStorage = async () =>
     await storeData({
@@ -139,10 +138,11 @@ function Main(props) {
     });
 
   // ensure number of selected state is accurate
-  const countSelectedThenSet = newCounters => {
+  const countSelectedThenSet = () => {
     let numSelected = [];
-    let useCounters = newCounters ? newCounters : counters;
-    useCounters.forEach(counter =>
+    console.log("counters", counters);
+
+    counters.forEach(counter =>
       counter.selected === true ? numSelected.push(counter.id) : null
     );
     setNumSelCounters(numSelected);
@@ -161,7 +161,6 @@ function Main(props) {
     };
 
     setCounters([...counters, newCounter]);
-    return countSelectedThenSet();
   };
 
   // find counter by id remove
@@ -173,8 +172,6 @@ function Main(props) {
     );
 
     setCounters(removeSelectedArray);
-
-    return countSelectedThenSet();
   };
 
   // find counter or setting by id then toggle selected state
@@ -188,7 +185,6 @@ function Main(props) {
     });
     if (isCounter) {
       setCounters(newArr);
-      countSelectedThenSet(newArr);
     } else {
       setSettings(newArr);
     }
@@ -204,11 +200,7 @@ function Main(props) {
     newCounters[indexOfCounter] = newCounter;
 
     setCounters(newCounters);
-    return countSelectedThenSet();
   };
-
-  // inc or dec because previous too slow
-
   return (
     <ThemeProvider theme={theme}>
       <CountersContext.Provider
