@@ -32,6 +32,13 @@ function HomeScreen({ navigation, theme }) {
                   <Card key={i} counter={counter} index={i} />
                 ))
               : null}
+            <View
+              style={{
+                height: 70,
+                width: "100%",
+                backgroundColor: "rgba(0,0,0,0)"
+              }}
+            ></View>
           </ScrollView>
           <HomeActionButtons navigation={navigation} />
         </View>
@@ -59,6 +66,7 @@ const styles = StyleSheet.create({
   counterContainer: {
     flexDirection: "column",
     flex: 1
+    // paddingBottom: 32
   },
   safeArea: theme => ({
     backgroundColor: theme.colors.Black,

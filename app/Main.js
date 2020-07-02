@@ -50,7 +50,43 @@ function Main(props) {
       const storageState = await getData().catch(err => console.log(err));
       const { numSelCounters, counters, settings } = storageState;
 
-      setCounters(counters);
+      const textCounters = [
+        ...counters,
+        {
+          title: `Test counter`,
+          count: 100,
+          id: guidGenerator(),
+          selected: false,
+          incrementAmount: 1,
+          selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
+        },
+        {
+          title: `Test counter`,
+          count: 1000,
+          id: guidGenerator(),
+          selected: false,
+          incrementAmount: 1,
+          selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
+        },
+        {
+          title: `Test counter`,
+          count: 10000,
+          id: guidGenerator(),
+          selected: false,
+          incrementAmount: 1,
+          selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
+        },
+        {
+          title: `Test counter`,
+          count: 100000,
+          id: guidGenerator(),
+          selected: false,
+          incrementAmount: 1,
+          selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
+        }
+      ];
+
+      setCounters(textCounters ? textCounters : counters);
       setNumSelCounters(numSelCounters);
       setSettings(
         Object.keys(settings).length > 0

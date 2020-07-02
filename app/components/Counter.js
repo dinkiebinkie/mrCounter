@@ -1,7 +1,13 @@
 import React, { useState, useContext } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableHighlight
+} from "react-native";
 import { withTheme } from "react-native-elements";
-import { TouchableHighlight } from "react-native-gesture-handler";
+// import { TouchableHighlight } from "react-native-gesture-handler";
 import { CountersContext } from "../state/CountersContext";
 
 // const windowHeight = Dimensions.get("window").height;
@@ -14,23 +20,29 @@ function Counter({ counter, index, theme }) {
 
   const [compHeight, setCompHeight] = useState(0);
   const [compWidth, setCompWidth] = useState(0);
-  const { title, count, selected, id } = counter;
+  const { title, count, selected, id, incrementAmount } = counter;
 
-  const changeCount = (counters, setCounters, id, increment) =>
+  const changeCount = increment =>
     setCounters(
       counters.map((counter, i) => {
         if (counter.id !== id) return counter;
 
         const newCounter = { ...counter };
         newCounter.count = increment
-          ? (counter.count += 1)
-          : (counter.count -= 1);
+          ? (counter.count += incrementAmount)
+          : (counter.count -= incrementAmount);
         return newCounter;
       })
     );
 
-  const numString = 1.11 - count.toString().length * 0.11;
+  // const numString = 1.11 - count.toString().length * 0.11;
+  const numString = 1.15 - count.toString().length * 0.11;
   console.log("numString", numString);
+  console.log("compHeight", compHeight);
+  console.log(count.toString().length);
+  console.log(count.toString().length * 0.11);
+  console.log(Math.floor(compHeight * numString));
+
   return (
     <View
       style={[
@@ -77,9 +89,9 @@ function Counter({ counter, index, theme }) {
             style={[
               styles.countText(theme),
               {
-                // fontSize: 16
-                fontSize: compHeight * numString,
-                lineHeight: compHeight * numString
+                // fontSize: compWidth / count.toString().length
+                fontSize: Math.floor(compHeight * numString)
+                // lineHeight: compHeight * numString
               }
             ]}
           >
@@ -88,29 +100,31 @@ function Counter({ counter, index, theme }) {
         </View>
       </View>
       <View style={styles.buttons(theme)}>
-        <View style={[styles.thButtonContainer(theme), { marginBottom: 5 }]}>
+        <View style={[styles.thButtonContainer(theme), { marginBottom: "2%" }]}>
           <Image
             source={require("../assets/Plus.png")}
             style={{ width: 28, height: 28, zIndex: 1000 }}
           />
-          <View style={[styles.thButton(theme)]}>
-            <TouchableHighlight
-              style={[styles.thButton(theme)]}
-              onPress={() => changeCount(counters, setCounters, id, true)}
-            ></TouchableHighlight>
-          </View>
+          <TouchableHighlight
+            style={[styles.thButton(theme)]}
+            onPress={() => changeCount(true)}
+          >
+            <View></View>
+          </TouchableHighlight>
         </View>
         <View style={styles.thButtonContainer(theme)}>
           <Image
             source={require("../assets/Minus.png")}
             style={{ width: 28, height: 4, zIndex: 1000 }}
           />
-          <View style={[styles.thButton(theme)]}>
-            <TouchableHighlight
-              style={[styles.thButton(theme)]}
-              onPress={() => changeCount(counters, setCounters, id, true)}
-            ></TouchableHighlight>
-          </View>
+          {/* <View style={[styles.thButton(theme)]}> */}
+          <TouchableHighlight
+            style={[styles.thButton(theme)]}
+            onPress={() => changeCount(false)}
+          >
+            <View></View>
+          </TouchableHighlight>
+          {/* </View> */}
         </View>
       </View>
     </View>
@@ -143,7 +157,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     borderRadius: 8
   }),
-  countInnerCont: { flex: 1 },
+  countInnerCont: { flex: 1, justifyContent: "flex-end" },
   countInnerContTop: {
     flexDirection: "row",
     justifyContent: "flex-end",
@@ -180,7 +194,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     shadowColor: "black",
     shadowRadius: 10,
-    shadowOpacity: 1
+    shadowOpacity: 1,
+    paddingRight: 12,
+    textAlign: "right"
   }),
   incButton: theme => ({
     textAlign: "center",
@@ -199,7 +215,7 @@ const styles = StyleSheet.create({
   thButtonContainer: theme => ({
     position: "relative",
     width: "100%",
-    height: "50%",
+    height: "49%",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center"
