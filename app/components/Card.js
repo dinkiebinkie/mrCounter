@@ -8,6 +8,8 @@ import {
   Switch,
   TextInput
 } from "react-native";
+import { SwipeRow } from "react-native-swipe-list-view";
+
 import { withTheme } from "react-native-elements";
 import { CountersContext } from "../state/CountersContext";
 
@@ -36,80 +38,58 @@ function HomeCounter({ theme, counter, setting, navigation }) {
   };
 
   return (
-    <>
-      <TouchableOpacity
-        style={[
-          styles.container(theme),
-          selected && styles.containerSelected,
-          {
-            transform: [
-              {
-                rotate: selected ? selectedSlant : "0deg"
-              }
-            ]
-          }
-        ]}
-        onPress={() => toggleSelect(id, counter ? true : false)}
-      >
-        {counter ? (
-          <TouchableWithoutFeedback
-            style={([styles.titles], { width: "68%" })}
-            onPress={toggleEditing}
-          >
-            {isEditing ? (
-              <TextInput
-                autoFocus={true}
-                value={titleValue}
-                style={styles.titleText}
-                onChangeText={text => setTitleValue(text)}
-                onSubmitEditing={() => submitTitle()}
-                numberOfLines={1}
-              />
-            ) : (
-              <Text numberOfLines={2} style={styles.titleText}>
-                {title}
-              </Text>
-            )}
-          </TouchableWithoutFeedback>
-        ) : (
-          <View style={([styles.titles], { width: "85%" })}>
-            <Text numberOfLines={1} style={styles.titleText}>
+    <TouchableOpacity
+      style={[
+        styles.container(theme),
+        selected && styles.containerSelected,
+        {
+          transform: [
+            {
+              rotate: selected ? selectedSlant : "0deg"
+            }
+          ]
+        }
+      ]}
+      onPress={() => toggleSelect(id, counter ? true : false)}
+    >
+      {counter ? (
+        <TouchableWithoutFeedback
+          style={([styles.titles], { width: "68%" })}
+          onPress={toggleEditing}
+        >
+          {isEditing ? (
+            <TextInput
+              autoFocus={true}
+              value={titleValue}
+              style={styles.titleText}
+              onChangeText={text => setTitleValue(text)}
+              onSubmitEditing={() => submitTitle()}
+              numberOfLines={1}
+            />
+          ) : (
+            <Text numberOfLines={2} style={styles.titleText}>
               {title}
             </Text>
-            <Text numberOfLines={1} style={styles.descText}>
-              {description}
-            </Text>
-          </View>
-        )}
-        {counter ? (
-          <>
-            <View
-              style={[
-                styles.rightContainer(theme),
-                selected && styles.rightContainerSelected(theme)
-              ]}
-            >
-              <Switch
-                trackColor={{
-                  false: theme.colors.LightGrey,
-                  true: theme.colors.MidBlue
-                }}
-                thumbColor={
-                  selected ? theme.colors.Blue : theme.colors.PureWhite
-                }
-                value={selected}
-                onValueChange={() => toggleSelect(id, counter ? true : false)}
-              />
-              <Text style={styles.countText}>{count}</Text>
-            </View>
-            {isEditing && (
-              <TouchableWithoutFeedback onPress={() => submitTitle()}>
-                <View style={styles.titleTextWrapper}></View>
-              </TouchableWithoutFeedback>
-            )}
-          </>
-        ) : (
-          <View style={[styles.rightContainerSettings]}>
+          )}
+        </TouchableWithoutFeedback>
+      ) : (
+        <View style={([styles.titles], { width: "85%" })}>
+          <Text numberOfLines={1} style={styles.titleText}>
+            {title}
+          </Text>
+          <Text numberOfLines={1} style={styles.descText}>
+            {description}
+          </Text>
+        </View>
+      )}
+      {counter ? (
+        <>
+          <View
+            style={[
+              styles.rightContainer(theme),
+              selected && styles.rightContainerSelected(theme)
+            ]}
+          >
             <Switch
               trackColor={{
                 false: theme.colors.LightGrey,
@@ -119,10 +99,30 @@ function HomeCounter({ theme, counter, setting, navigation }) {
               value={selected}
               onValueChange={() => toggleSelect(id, counter ? true : false)}
             />
+            <Text numberOfLines={1} style={styles.countText}>
+              {count}
+            </Text>
           </View>
-        )}
-      </TouchableOpacity>
-    </>
+          {isEditing && (
+            <TouchableWithoutFeedback onPress={() => submitTitle()}>
+              <View style={styles.titleTextWrapper}></View>
+            </TouchableWithoutFeedback>
+          )}
+        </>
+      ) : (
+        <View style={[styles.rightContainerSettings]}>
+          <Switch
+            trackColor={{
+              false: theme.colors.LightGrey,
+              true: theme.colors.MidBlue
+            }}
+            thumbColor={selected ? theme.colors.Blue : theme.colors.PureWhite}
+            value={selected}
+            onValueChange={() => toggleSelect(id, counter ? true : false)}
+          />
+        </View>
+      )}
+    </TouchableOpacity>
   );
 }
 
@@ -182,7 +182,10 @@ const styles = StyleSheet.create({
   },
   rightContainerSelected: theme => ({
     backgroundColor: theme.colors.LightBlue
-  })
+  }),
+  rowBack: {
+    flex: 1
+  }
 });
 
 export default withTheme(HomeCounter);

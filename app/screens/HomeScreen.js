@@ -4,7 +4,9 @@ import {
   View,
   SafeAreaView,
   ScrollView,
-  ImageBackground
+  ImageBackground,
+  Text,
+  TouchableOpacity
 } from "react-native";
 import Card from "../components/Card";
 import HomeActionButtons from "../components/HomeActionButtons";
@@ -17,6 +19,7 @@ import { withTheme } from "react-native-elements";
 //rsf
 function HomeScreen({ navigation, theme }) {
   const { counters } = useContext(CountersContext);
+
   return (
     <SafeAreaView style={styles.safeArea(theme)}>
       <ImageBackground
@@ -36,7 +39,7 @@ function HomeScreen({ navigation, theme }) {
               style={{
                 height: 70,
                 width: "100%",
-                backgroundColor: "rgba(0,0,0,0)"
+                opacity: 0
               }}
             ></View>
           </ScrollView>
@@ -71,7 +74,25 @@ const styles = StyleSheet.create({
   safeArea: theme => ({
     backgroundColor: theme.colors.Black,
     flex: 1
-  })
+  }),
+  rowBack: {
+    alignItems: "center",
+    backgroundColor: "#DDD",
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: 15
+  },
+  backRightBtn: {
+    alignItems: "center",
+    bottom: 0,
+    justifyContent: "center",
+    position: "absolute",
+    top: 0,
+    width: 75,
+    backgroundColor: "red",
+    right: 0
+  }
 });
 
 export default withTheme(HomeScreen);

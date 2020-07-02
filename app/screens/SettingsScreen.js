@@ -10,7 +10,7 @@ import { withTheme } from "react-native-elements";
 //rsf
 function SettingsScreen({ route, theme, navigation }) {
   const { settings } = useContext(CountersContext);
-  console.log("settings", settings);
+
   return (
     <SafeAreaView style={styles.safeArea(theme)}>
       <ImageBackground

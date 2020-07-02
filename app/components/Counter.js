@@ -4,12 +4,13 @@ import {
   Text,
   View,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  Dimensions
 } from "react-native";
 import { withTheme } from "react-native-elements";
 // import { TouchableHighlight } from "react-native-gesture-handler";
 import { CountersContext } from "../state/CountersContext";
-
+const screenHeight = Math.floor(Dimensions.get("window").height);
 // const windowHeight = Dimensions.get("window").height;
 
 //rsf
@@ -17,7 +18,7 @@ function Counter({ counter, index, theme }) {
   const { counters, setCounters, numSelCounters } = useContext(CountersContext);
 
   const selLength = numSelCounters.length;
-
+  // console.log(counter);
   const [compHeight, setCompHeight] = useState(0);
   const [compWidth, setCompWidth] = useState(0);
   const { title, count, selected, id, incrementAmount } = counter;
@@ -35,26 +36,17 @@ function Counter({ counter, index, theme }) {
       })
     );
 
-  // const numString = 1.11 - count.toString().length * 0.11;
   const numString = 1.15 - count.toString().length * 0.11;
-  console.log("numString", numString);
-  console.log("compHeight", compHeight);
-  console.log(count.toString().length);
-  console.log(count.toString().length * 0.11);
-  console.log(Math.floor(compHeight * numString));
 
   return (
     <View
       style={[
         styles.container(theme),
         {
-          paddingBottom: selLength === index ? 0 : "1%",
-          height: `${selLength >= 4 ? 25 : 100 / selLength}%`,
-          flexDirection: selLength === 1 ? "column" : "row",
-          justifyContent: "space-between",
-          alignItems: "stretch",
-
-          flex: 1
+          paddingBottom: selLength === index ? 0 : 8,
+          height: `${selLength >= 4 ? 25 : (100 - selLength) / selLength}%`,
+          maxHeight: selLength >= 4 ? screenHeight * 0.21 : screenHeight,
+          flexDirection: selLength === 1 ? "column" : "row"
         }
       ]}
     >
@@ -62,7 +54,9 @@ function Counter({ counter, index, theme }) {
         style={[
           styles.count(theme),
           {
-            marginBottom: selLength === 1 ? 12 : 0
+            marginBottom: selLength === 1 ? 12 : 0,
+            height: selLength === 1 ? "50%" : "100%"
+
             // flexDirection: selLength === 1 ? "column" : "row"
           }
         ]}
@@ -99,7 +93,17 @@ function Counter({ counter, index, theme }) {
           </Text>
         </View>
       </View>
-      <View style={styles.buttons(theme)}>
+      <View
+        style={[
+          styles.buttons(theme),
+          {
+            flex: selLength === 1 ? 1 : 0,
+
+            width: selLength === 1 ? "100%" : "30%",
+            marginLeft: selLength === 1 ? 0 : 8
+          }
+        ]}
+      >
         <View style={[styles.thButtonContainer(theme), { marginBottom: "2%" }]}>
           <Image
             source={require("../assets/Plus.png")}
@@ -136,7 +140,7 @@ const styles = StyleSheet.create({
   buttons: theme => ({
     flexDirection: "column",
     alignItems: "center",
-    width: "100%",
+    justifyContent: "space-between",
     height: "100%",
     backgroundColor: theme.colors.Grey2,
     flex: 1,
@@ -144,12 +148,13 @@ const styles = StyleSheet.create({
     padding: 5
   }),
   container: theme => ({
-    // backgroundColor: "blue"
+    justifyContent: "space-between",
+    alignItems: "stretch",
+    flex: 1
   }),
   count: theme => ({
     backgroundColor: theme.colors.Grey2,
     flex: 1,
-    height: "50%",
     justifyContent: "center",
     alignItems: "center",
     textAlignVertical: "center",
@@ -210,7 +215,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     borderRadius: 4,
-    backgroundColor: theme.colors.Darkest
+    // backgroundColor: theme.colors.Darkest,
+    zIndex: 100000
   }),
   thButtonContainer: theme => ({
     position: "relative",
@@ -218,7 +224,9 @@ const styles = StyleSheet.create({
     height: "49%",
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    borderRadius: 4,
+    backgroundColor: theme.colors.Darkest
   })
 });
 

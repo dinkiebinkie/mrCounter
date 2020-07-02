@@ -50,43 +50,44 @@ function Main(props) {
       const storageState = await getData().catch(err => console.log(err));
       const { numSelCounters, counters, settings } = storageState;
 
-      const textCounters = [
-        ...counters,
-        {
-          title: `Test counter`,
-          count: 100,
-          id: guidGenerator(),
-          selected: false,
-          incrementAmount: 1,
-          selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
-        },
-        {
-          title: `Test counter`,
-          count: 1000,
-          id: guidGenerator(),
-          selected: false,
-          incrementAmount: 1,
-          selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
-        },
-        {
-          title: `Test counter`,
-          count: 10000,
-          id: guidGenerator(),
-          selected: false,
-          incrementAmount: 1,
-          selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
-        },
-        {
-          title: `Test counter`,
-          count: 100000,
-          id: guidGenerator(),
-          selected: false,
-          incrementAmount: 1,
-          selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
-        }
-      ];
+      // const textCounters = [
+      //   ...counters,
+      //   {
+      //     title: `Test counter`,
+      //     count: 100,
+      //     id: guidGenerator(),
+      //     selected: false,
+      //     incrementAmount: 1,
+      //     selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
+      //   },
+      //   {
+      //     title: `Test counter`,
+      //     count: 1000,
+      //     id: guidGenerator(),
+      //     selected: false,
+      //     incrementAmount: 1,
+      //     selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
+      //   },
+      //   {
+      //     title: `Test counter`,
+      //     count: 10000,
+      //     id: guidGenerator(),
+      //     selected: false,
+      //     incrementAmount: 1,
+      //     selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
+      //   },
+      //   {
+      //     title: `Test counter`,
+      //     count: 1000000,
+      //     id: guidGenerator(),
+      //     selected: false,
+      //     incrementAmount: 1,
+      //     selectedSlant: Math.random() > 0.5 ? "-1deg" : "1deg"
+      //   }
+      // ];
 
-      setCounters(textCounters ? textCounters : counters);
+      // setCounters(textCounters ? textCounters : counters);
+      setCounters(counters);
       setNumSelCounters(numSelCounters);
       setSettings(
         Object.keys(settings).length > 0
@@ -128,6 +129,8 @@ function Main(props) {
     // countSelectedThenSet();
   }, []);
 
+  // useEffect(() => saveToStorage(), [counters, numSelCounters, settings]);
+
   const saveToStorage = async () =>
     await storeData({
       counters,
@@ -162,10 +165,15 @@ function Main(props) {
   };
 
   // find counter by id remove
-  const removeCounter = id => {
+  const removeCounters = () => {
     const newCounters = [...counters];
-    const indexOfCounter = newCounters.findIndex(counter => counter.id === id);
-    setCounters(newCounters.splice(indexOfCounter, 1));
+
+    const removeSelectedArray = newCounters.filter(
+      counter => !counter.selected
+    );
+
+    setCounters(removeSelectedArray);
+
     return countSelectedThenSet();
   };
 
@@ -208,7 +216,7 @@ function Main(props) {
           numSelCounters,
           countSelectedThenSet,
           addCounter,
-          removeCounter,
+          removeCounters,
           toggleSelect,
           editCounter,
           settings,
