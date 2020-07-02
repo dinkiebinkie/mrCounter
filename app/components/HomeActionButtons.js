@@ -71,7 +71,7 @@ function HomeScreen({ navigation, theme }) {
         easing: Easing.inOut(Easing.linear)
       }).start();
     }
-    if (numSel === 1 || (firstLoad && numSel >= 1)) {
+    if (numSel >= 1) {
       Animated.timing(goWidth, {
         toValue: (screenWidth - containerMargin * 4 - delDimensions) * 0.7,
         useNativeDriver: false,
@@ -103,8 +103,6 @@ function HomeScreen({ navigation, theme }) {
   };
 
   useEffect(() => calcAnimated(), [numSel]);
-  useEffect(() => calcAnimated(true), []);
-  // console.log("delLeft", delLeft);
   return (
     <View style={styles.buttonContainer}>
       <Animated.View

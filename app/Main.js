@@ -207,6 +207,8 @@ function Main(props) {
     return countSelectedThenSet();
   };
 
+  // inc or dec because previous too slow
+
   return (
     <ThemeProvider theme={theme}>
       <CountersContext.Provider
