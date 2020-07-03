@@ -27,7 +27,7 @@ function HomeScreen({ navigation, theme }) {
         style={styles.appBg}
       >
         <Header navigation={navigation} />
-        <ScrollView contentContainerStyle={styles.container(theme)}>
+        <ScrollView style={styles.container(theme)}>
           <View style={styles.containerView(theme)}>
             <SectionTitle sectionTitle={"Most recent"} />
             <View style={styles.counterContainer}>
@@ -63,23 +63,21 @@ const styles = StyleSheet.create({
   container: theme => ({
     position: "relative",
     flexDirection: "column",
-    // justifyContent: "space-between",
     flex: 1,
     padding: 8,
-    paddingTop: 115
+    paddingTop: 115,
+    background: "red"
   }),
   containerView: theme => ({
     position: "relative",
     flexDirection: "column",
     justifyContent: "space-between",
-    flex: 1
-    // padding: 8,
-    // paddingTop: 115
+    flex: 1,
+    minHeight: "100%"
   }),
   counterContainer: {
     flexDirection: "column",
     flex: 1
-    // paddingBottom: 32
   },
   safeArea: theme => ({
     backgroundColor: theme.colors.Black,

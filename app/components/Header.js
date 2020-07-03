@@ -10,8 +10,7 @@ import {
 } from "react-native";
 import { CountersContext } from "../state/CountersContext";
 import { withTheme } from "react-native-elements";
-import { BlurView } from "expo-blur";
-
+import { BlurView } from "@react-native-community/blur";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const screenWidth = Math.floor(Dimensions.get("window").width);
@@ -664,7 +663,11 @@ function HomeScreen({ navigation, theme }) {
         </View>
       </View>
       <Animated.View style={[styles.blurViewContainer, { top: blurViewTop }]}>
-        <BlurView intensity={10} style={[styles.blurView]}></BlurView>
+        <BlurView
+          tint={"dark"}
+          intensity={50}
+          style={[styles.blurView]}
+        ></BlurView>
       </Animated.View>
     </View>
   );
@@ -679,7 +682,8 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12
+    borderBottomRightRadius: 12,
+    backgroundColor: "rgba(0,0,0,0)"
   },
   blurViewContainer: {
     position: "absolute",
@@ -693,7 +697,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     flexDirection: "column",
-    backgroundColor: "rgba(43,44,46,0)"
+    backgroundColor: "rgba(43,44,46,0)",
+    zIndex: 50000
   },
   contentContainer: {
     position: "relative",

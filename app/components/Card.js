@@ -8,7 +8,6 @@ import {
   Switch,
   TextInput
 } from "react-native";
-import { SwipeRow } from "react-native-swipe-list-view";
 
 import { withTheme } from "react-native-elements";
 import { CountersContext } from "../state/CountersContext";
