@@ -27,24 +27,26 @@ function HomeScreen({ navigation, theme }) {
         style={styles.appBg}
       >
         <Header navigation={navigation} />
-        <View style={styles.container(theme)}>
-          <SectionTitle sectionTitle={"Most recent"} />
-          <ScrollView style={styles.counterContainer}>
-            {counters
-              ? counters.map((counter, i) => (
-                  <Card key={i} counter={counter} index={i} />
-                ))
-              : null}
-            <View
-              style={{
-                height: 70,
-                width: "100%",
-                opacity: 0
-              }}
-            ></View>
-          </ScrollView>
-          <HomeActionButtons navigation={navigation} />
-        </View>
+        <ScrollView contentContainerStyle={styles.container(theme)}>
+          <View style={styles.containerView(theme)}>
+            <SectionTitle sectionTitle={"Most recent"} />
+            <View style={styles.counterContainer}>
+              {counters
+                ? counters.map((counter, i) => (
+                    <Card key={i} counter={counter} index={i} />
+                  ))
+                : null}
+              <View
+                style={{
+                  height: 70,
+                  width: "100%",
+                  opacity: 0
+                }}
+              ></View>
+            </View>
+            <HomeActionButtons navigation={navigation} />
+          </View>
+        </ScrollView>
       </ImageBackground>
     </SafeAreaView>
   );
@@ -61,10 +63,18 @@ const styles = StyleSheet.create({
   container: theme => ({
     position: "relative",
     flexDirection: "column",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     flex: 1,
     padding: 8,
-    paddingTop: 12
+    paddingTop: 115
+  }),
+  containerView: theme => ({
+    position: "relative",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    flex: 1
+    // padding: 8,
+    // paddingTop: 115
   }),
   counterContainer: {
     flexDirection: "column",

@@ -140,7 +140,6 @@ function Main(props) {
   // ensure number of selected state is accurate
   const countSelectedThenSet = () => {
     let numSelected = [];
-    console.log("counters", counters);
 
     counters.forEach(counter =>
       counter.selected === true ? numSelected.push(counter.id) : null

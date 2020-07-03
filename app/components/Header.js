@@ -10,7 +10,8 @@ import {
 } from "react-native";
 import { CountersContext } from "../state/CountersContext";
 import { withTheme } from "react-native-elements";
-import { LinearGradient } from "expo-linear-gradient";
+import { BlurView } from "expo-blur";
+
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const screenWidth = Math.floor(Dimensions.get("window").width);
@@ -18,7 +19,6 @@ const eyeWidth = 32;
 
 function HomeScreen({ navigation, theme }) {
   const { numSelCounters } = useContext(CountersContext);
-  console.log("numSelCounters", numSelCounters);
   const numSel = numSelCounters.length;
 
   const [isEyeAwake, setIsEyeAwake] = useState(numSel > 0 ? true : false);
@@ -34,15 +34,26 @@ function HomeScreen({ navigation, theme }) {
   const eyeRingSize4 = useRef(new Animated.Value(32)).current;
   const eyeRingSize5 = useRef(new Animated.Value(32)).current;
   const eyeRingSize6 = useRef(new Animated.Value(32)).current;
+  const settingsSpin = useRef(new Animated.Value(0)).current;
+  const eyeballWidth = useRef(new Animated.Value(4)).current;
+  const outlineHeight = useRef(new Animated.Value(15)).current;
+  const blurViewTop = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    console.log(numSel, isEyeAwake);
     if (numSel === 0) {
       setIsEyeAwake(false);
       Animated.timing(eyePos, {
         toValue: 50,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeballWidth, {
+        toValue: 4,
+        useNativeDriver: false,
+        duration: 300,
+        delay: 100,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
@@ -50,7 +61,7 @@ function HomeScreen({ navigation, theme }) {
       Animated.timing(eyeLidPos, {
         toValue: 1,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
@@ -58,7 +69,21 @@ function HomeScreen({ navigation, theme }) {
       Animated.timing(eyeBgHeight, {
         toValue: eyeWidth,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
+        easing: Easing.linear
+      }).start();
+
+      Animated.timing(outlineHeight, {
+        toValue: 15,
+        useNativeDriver: false,
+        duration: 300,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(blurViewTop, {
+        toValue: -200,
+        useNativeDriver: false,
+        duration: 300,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
@@ -124,6 +149,13 @@ function HomeScreen({ navigation, theme }) {
         duration: 200,
         easing: Easing.inOut(Easing.linear)
       }).start();
+
+      Animated.timing(settingsSpin, {
+        toValue: 0,
+        duration: 300,
+        easing: Easing.linear,
+        useNativeDriver: true
+      }).start();
     }
     if (numSel >= 1) {
       setIsEyeAwake(true);
@@ -132,7 +164,15 @@ function HomeScreen({ navigation, theme }) {
       Animated.timing(eyePos, {
         toValue: 0,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(eyeballWidth, {
+        toValue: 12,
+        useNativeDriver: false,
+        delay: 100,
+        duration: 300,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
@@ -140,7 +180,7 @@ function HomeScreen({ navigation, theme }) {
       Animated.timing(eyeLidPos, {
         toValue: -1,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
@@ -148,7 +188,21 @@ function HomeScreen({ navigation, theme }) {
       Animated.timing(eyeBgHeight, {
         toValue: 0,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
+        easing: Easing.linear
+      }).start();
+
+      Animated.timing(outlineHeight, {
+        toValue: 40,
+        useNativeDriver: false,
+        duration: 300,
+        easing: Easing.inOut(Easing.linear)
+      }).start();
+
+      Animated.timing(blurViewTop, {
+        toValue: 0,
+        useNativeDriver: false,
+        duration: 300,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
@@ -214,6 +268,13 @@ function HomeScreen({ navigation, theme }) {
         duration: 200,
         easing: Easing.inOut(Easing.linear)
       }).start();
+
+      Animated.timing(settingsSpin, {
+        toValue: 1,
+        duration: 300,
+        easing: Easing.linear,
+        useNativeDriver: true
+      }).start();
     }
 
     if (numSel >= 2) {
@@ -255,14 +316,14 @@ function HomeScreen({ navigation, theme }) {
       Animated.timing(eyeRingSize3, {
         toValue: 40,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
       Animated.timing(eyeRingSize4, {
         toValue: 44,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
@@ -318,28 +379,28 @@ function HomeScreen({ navigation, theme }) {
       Animated.timing(eyeRingSize3, {
         toValue: 40,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
       Animated.timing(eyeRingSize4, {
         toValue: 44,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
       Animated.timing(eyeRingSize5, {
         toValue: 48,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
         easing: Easing.inOut(Easing.linear)
       }).start();
 
       Animated.timing(eyeRingSize6, {
         toValue: 52,
         useNativeDriver: false,
-        duration: 600,
+        duration: 300,
         easing: Easing.inOut(Easing.linear)
       }).start();
     }
@@ -351,39 +412,51 @@ function HomeScreen({ navigation, theme }) {
     }
   }, [numSel]);
 
+  const spin = settingsSpin.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "360deg"]
+  });
+
   return (
     <View style={styles.container}>
-      {/* <LinearGradient
-        colors={["#AAA191", "rgba(170, 161, 145, 0)"]}
-        style={styles.gradient}
-      > */}
       <View style={styles.contentContainer}>
         <View style={styles.eyeContainer}>
           {/* Hide these components when outside of eye */}
           <View style={styles.eyeContainerHidden}>
             {/* eyeball and pupil */}
-            <Animated.View
-              style={[
-                styles.eyeBallCenter,
-                {
-                  top: eyePos
-                }
-              ]}
-            >
-              <View
+            <Animated.View style={[styles.eyeBallCenter]}>
+              <Animated.View
                 style={[
                   styles.eyeBall(theme),
-                  numSel > 0 && styles.eyeBallAwake
+                  numSel > 0 && styles.eyeBallAwake,
+                  {
+                    width: eyeballWidth,
+                    height: eyeballWidth
+                  }
                 ]}
               >
-                <View style={styles.eyeBallPupil(theme)}></View>
-              </View>
+                <View
+                  style={[
+                    styles.eyeBallPupil(theme),
+                    {
+                      backgroundColor:
+                        numSel > 0 ? theme.colors.Black : theme.colors.DarkBeige
+                    }
+                  ]}
+                ></View>
+              </Animated.View>
             </Animated.View>
-            {/* bottom half of eyelid */}
-            <View style={[styles.eyeLid(theme), styles.eyeLidBottom]}></View>
             {/* Whites of Eye */}
             <Animated.View
-              style={[styles.eyeBg, { top: eyeBgHeight }]}
+              style={[
+                styles.eyeBg,
+                {
+                  top: eyeBgHeight,
+                  left: eyeBgHeight,
+                  bottom: eyeBgHeight,
+                  right: eyeBgHeight
+                }
+              ]}
             ></Animated.View>
           </View>
           {/* Eye Rings - Outside of Hidden container */}
@@ -451,38 +524,56 @@ function HomeScreen({ navigation, theme }) {
           </View>
         </View>
 
-        <TouchableWithoutFeedback style={styles.mrCounterContainer}>
-          <Image
-            source={require("../assets/MrCounter1.png")}
-            style={styles.mrCounter}
-          />
-        </TouchableWithoutFeedback>
+        <View style={styles.mrCounterContainer}>
+          {numSel > 0 ? (
+            <Image
+              source={require("../assets/MrCounter2.png")}
+              style={styles.mrCounter2}
+            />
+          ) : (
+            <Image
+              source={require("../assets/MrCounter1.png")}
+              style={styles.mrCounter}
+            />
+          )}
+        </View>
         <View style={styles.eyeContainer}>
           {/* Hide these components when outside of eye */}
           <View style={styles.eyeContainerHidden}>
             {/* eyeball and pupil */}
-            <Animated.View
-              style={[
-                styles.eyeBallCenter,
-                {
-                  top: eyePos
-                }
-              ]}
-            >
-              <View
+            <Animated.View style={[styles.eyeBallCenter]}>
+              <Animated.View
                 style={[
                   styles.eyeBall(theme),
-                  numSel > 0 && styles.eyeBallAwake
+                  numSel > 0 && styles.eyeBallAwake,
+                  {
+                    width: eyeballWidth,
+                    height: eyeballWidth
+                  }
                 ]}
               >
-                <View style={styles.eyeBallPupil(theme)}></View>
-              </View>
+                <View
+                  style={[
+                    styles.eyeBallPupil(theme),
+                    {
+                      backgroundColor:
+                        numSel > 0 ? theme.colors.Black : theme.colors.DarkBeige
+                    }
+                  ]}
+                ></View>
+              </Animated.View>
             </Animated.View>
-            {/* bottom half of eyelid */}
-            <View style={[styles.eyeLid(theme), styles.eyeLidBottom]}></View>
             {/* Whites of Eye */}
             <Animated.View
-              style={[styles.eyeBg, { top: eyeBgHeight }]}
+              style={[
+                styles.eyeBg,
+                {
+                  top: eyeBgHeight,
+                  left: eyeBgHeight,
+                  bottom: eyeBgHeight,
+                  right: eyeBgHeight
+                }
+              ]}
             ></Animated.View>
           </View>
           {/* Eye Rings - Outside of Hidden container */}
@@ -549,25 +640,58 @@ function HomeScreen({ navigation, theme }) {
             ></Animated.View>
           </View>
         </View>
-        <View style={styles.contentContainerOutline(theme)}></View>
+        <Animated.View
+          style={[
+            styles.contentContainerOutline(theme),
+            {
+              height: outlineHeight,
+              borderColor: numSel > 0 ? theme.colors.Grey2 : theme.colors.Grey3
+            }
+          ]}
+        >
+          <View style={styles.contentContainerDingus(theme)}></View>
+        </Animated.View>
         <View style={styles.settingsContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-            <Image
+          <TouchableOpacity
+            style={styles.settingsTouch}
+            onPress={() => navigation.navigate("Settings")}
+          >
+            <Animated.Image
               source={require("../assets/Settings.png")}
-              style={styles.settings}
+              style={[styles.settings, { transform: [{ rotate: spin }] }]}
             />
           </TouchableOpacity>
         </View>
       </View>
-      {/* </LinearGradient> */}
+      <Animated.View style={[styles.blurViewContainer, { top: blurViewTop }]}>
+        <BlurView intensity={10} style={[styles.blurView]}></BlurView>
+      </Animated.View>
     </View>
   );
 }
 
 //rnss
 const styles = StyleSheet.create({
+  blurView: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: 0,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12
+  },
+  blurViewContainer: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0
+  },
   container: {
-    position: "relative",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
     flexDirection: "column",
     backgroundColor: "rgba(43,44,46,0)"
   },
@@ -576,23 +700,32 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "flex-end",
+    alignItems: "center",
     margin: 10,
     paddingTop: 40,
-    paddingBottom: 15
+    paddingBottom: 10
   },
   contentContainerOutline: theme => ({
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    borderColor: theme.colors.Beige1,
+    borderColor: theme.colors.Grey3,
     borderBottomWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,
     height: 15,
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5
+  }),
+  contentContainerDingus: theme => ({
+    position: "absolute",
+    bottom: -4,
+    left: "50%",
+    // right: 0,
+    height: 4,
+    width: 1,
+    backgroundColor: theme.colors.Grey3
   }),
   eyeBall: theme => ({
     width: 14,
@@ -610,13 +743,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+    top: 0,
     justifyContent: "center",
     alignItems: "center"
   },
   eyeBallPupil: theme => ({
-    width: 8,
-    height: 8,
-    backgroundColor: theme.colors.Black,
+    width: 4,
+    height: 4,
     borderRadius: 50
   }),
   eyeBg: {
@@ -625,7 +758,8 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    zIndex: 0
+    zIndex: 0,
+    borderRadius: 50
   },
   eyeContainer: {
     position: "relative",
@@ -678,35 +812,55 @@ const styles = StyleSheet.create({
     paddingBottom: 0
   },
   mrCounterContainer: {
-    maxWidth: screenWidth / 2,
+    position: "relative",
+    maxWidth: 183,
+    height: "100%",
     flex: 1,
+    maxHeight: 19,
     marginLeft: 15,
     marginRight: 15,
-    zIndex: 10000
+    zIndex: 10000,
+    alignItems: "center",
+    justifyContent: "center"
   },
   mrCounter: {
-    width: screenWidth / 2,
-    height: screenWidth / 16,
-    resizeMode: "contain"
-  },
-  settingsContainer: {
     position: "absolute",
-    right: 0,
-    top: 0,
+    top: -9,
+    left: 0,
     bottom: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    maxWidth: screenWidth * 0.064,
-    paddingBottom: 10,
-    paddingRight: 15
-    // backgroundColor: "red"
-    // zIndex: 18903289382
+    right: 0,
+    resizeMode: "contain",
+    width: "100%"
+  },
+  mrCounter2: {
+    position: "absolute",
+    top: -16,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    resizeMode: "contain",
+    width: "100%"
   },
   settings: {
     width: screenWidth * 0.064,
     height: screenWidth * 0.064,
     resizeMode: "contain"
+  },
+  settingsContainer: {
+    position: "absolute",
+    right: 0,
+    // top: 0,
+    bottom: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    maxWidth: screenWidth * 0.064,
+    paddingBottom: 15,
+    paddingRight: 25
+  },
+  settingsTouch: {
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 

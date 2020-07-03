@@ -11,13 +11,14 @@ function SectionTitle({ sectionTitle, theme }) {
   return (
     <View style={styles.container(theme)}>
       <Text style={styles.title(theme)}>{sectionTitle}</Text>
-      <LinearGradient
+      {/* <LinearGradient
         colors={["#AAA191", "transparent"]}
         style={styles.gradient}
-      ></LinearGradient>
+      ></LinearGradient> */}
       <Text style={styles.count(theme)}>
         {sectionTitle === "Settings" ? settings.length : counters.length}
       </Text>
+      <View style={styles.containerDingus(theme)}></View>
     </View>
   );
 }
@@ -27,32 +28,43 @@ const styles = StyleSheet.create({
   container: theme => ({
     position: "relative",
     flexDirection: "row",
-    borderColor: theme.colors.DarkBeige,
+    borderColor: theme.colors.Grey2,
     borderTopWidth: 1,
     borderRightWidth: 1,
+    borderLeftWidth: 1,
+    borderTopRightRadius: 8,
+    borderTopLeftRadius: 8,
     marginBottom: 8
   }),
-  title: theme => ({
-    paddingLeft: 12,
-    paddingRight: 12,
-    color: theme.colors.DeepBeige,
-    fontWeight: "bold",
-    textTransform: "uppercase",
-    borderWidth: 1,
-    borderColor: theme.colors.DarkBeige,
-    borderTopWidth: 0
-  }),
   count: theme => ({
-    borderRightWidth: 1,
+    fontWeight: "bold",
     paddingRight: 4,
     marginRight: 2,
     height: "100%",
-    borderColor: theme.colors.DarkBeige,
+    borderColor: theme.colors.Grey2,
     position: "absolute",
     right: 0,
     top: 0,
     bottom: 0,
-    color: theme.colors.DarkBeige
+    color: theme.colors.Grey4
+  }),
+  containerDingus: theme => ({
+    position: "absolute",
+    left: "50%",
+    top: -4,
+    backgroundColor: theme.colors.Grey2,
+    height: 4,
+    width: 1
+  }),
+  title: theme => ({
+    paddingLeft: 12,
+    paddingRight: 12,
+    color: theme.colors.Grey4,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    borderRightWidth: 1,
+    borderColor: theme.colors.Grey2,
+    borderTopWidth: 0
   })
 });
 

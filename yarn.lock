@@ -2679,6 +2679,13 @@ expo-asset@~8.1.7:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-blur@~8.1.2:
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/expo-blur/-/expo-blur-8.1.2.tgz#d8f12d6492f3df264a1eaae8a15c22b3a283375e"
+  integrity sha512-Z/NCe59rDR9D54FEZNisRybZwihfE9EQfolgchmra9wt89eryXMtxR9ciHn6n0F/BImOiS6UhzQZIE4SRs76Eg==
+  dependencies:
+    prop-types "^15.6.0"
+
 expo-constants@~9.1.1:
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-9.1.1.tgz#bca141ee3d4550e308798128f66c6d9c6a206ca1"
@@ -4759,6 +4766,11 @@ react-native-svg@12.1.0:
   dependencies:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
+
+react-native-swipe-list-view@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-swipe-list-view/-/react-native-swipe-list-view-3.1.2.tgz#e94fa72803bc18d19db88003926575108aadd969"
+  integrity sha512-xI36tOrrEfH9PUGVQh5fqoyDU0tmaOgEUufoT6YTz896/l2YIxbpw9eyNdLVaRfmP9BfvSuNAnOOxie8R+ViJQ==
 
 react-native-web@~0.11.7:
   version "0.11.7"
